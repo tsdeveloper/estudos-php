@@ -7,7 +7,7 @@ fullStackPHPClassName("02.03 - Comandos de saída");
  */
 fullStackPHPClassSession("echo", __LINE__);
 
-echo 'Teste 4';
+echo "<p>Olá Mundo!", " ", "<span class='tag'>#BoraProgramar!</span>", "</p>";
 /**
  * [ print ] https://php.net/manual/pt_BR/function.print.php
  */
