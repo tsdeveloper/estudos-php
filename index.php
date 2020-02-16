@@ -8,7 +8,7 @@ fullStackPHPClassName("02.11 - Trabalhando com funções");
 fullStackPHPClassSession("functions", __LINE__);
 
 require __DIR__ . "/functions.php";
-
+echo "<pre>";
 var_dump(functionName("Pearl Jam", "AC\DC", "Alter Bridge"));
 var_dump(functionName("Robson", "Kaue", "Gustavo"));
 
@@ -16,7 +16,7 @@ var_dump(functionName("Robson", "Kaue", "Gustavo"));
 var_dump(optionArgs("Robson"));
 var_dump(optionArgs("Robson", "Kaue"));
 var_dump(optionArgs("Robson", "Kaue", "Gustavo"));
-
+echo "</pre>";
 
 /*
  * [ global access ] global $var
@@ -45,5 +45,6 @@ echo $pay;
  */
 fullStackPHPClassSession("dinamic arguments", __LINE__);
 
-
+echo "<pre>";
 var_dump(myTeam("Kaue", "Gustavo", "Gah", "João"));
+echo "</pre>";
