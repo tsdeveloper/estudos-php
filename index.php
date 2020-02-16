@@ -1,107 +1,88 @@
 <?php
 require __DIR__ . '/../../fullstackphp/fsphp.php';
-fullStackPHPClassName("02.04 - Variáveis e tipos de dados");
+echo fullStackPHPClassName("02.05 - Operadores na prática");
 
 /**
- * [tipos de dados] https://php.net/manual/pt_BR/language.types.php
- * [ variáveis ] https://php.net/manual/pt_BR/language.variables.php
+ * [ operadores ] https://php.net/manual/pt_BR/language.operators.php
+ * [ atribuição ] https://php.net/manual/pt_BR/language.operators.assignment.php
  */
-fullStackPHPClassSession("variáveis", __LINE__);
+fullStackPHPClassSession("atribuição", __LINE__);
 
-$userFirstName = "Robson";
-$userLastName = "Leite";
-echo "<h3>{$userFirstName} {$userLastName}</h3>";
-
-$user_first_name = $userFirstName;
-$user_last_name = $userLastName;
-echo "<h3>{$user_first_name} {$user_last_name}</h3>";
-
-$userAge = "32";
-echo "<p>{$userFirstName} {$userLastName} <span class='tag'>tem {$userAge}</span></p>";
-
-$userEmail = "<p>cursos@upinside.com.br</p>";
-echo $userEmail;
-
-//variável variável
-$company = "UpInside";
-$$company = "Treinamentos";
-echo "<h3>{$company} {$UpInside}</h3>";
+$operatorA = 5;
+$operators = [
+    "a += 5" => ($operatorA += 5),
+    "a -= 5" => ($operatorA -= 5),
+    "a *- 5" => ($operatorA *= 5),
+    "a /= 5" => ($operatorA /= 5)
+];
+var_dump($operators);
 
 
-$calcA = 10;
-$calcB = 20;
-//$calcB = $calcA;
-$calcB = &$calcA;
-$calcB = 50;
-
-var_dump([
-    "a" => $calcA,
-    "b" => $calcB
-]);
+$incrementA = 5;
+$incrementB = 5;
+$increment = [
+    "pós-incremento" => $incrementA++,
+    "res-incremento" => $incrementA,
+    "pré-incremento" => ++$incrementA,
+    "pós-decremento" => $incrementB--,
+    "res-decremento" => $incrementB,
+    "pré-decremento" => --$incrementB,
+];
+var_dump($increment);
 
 
 /**
- * [ tipo boleano ] true | false
+ * [ comparação ] https://php.net/manual/pt_BR/language.operators.comparison.php
  */
-fullStackPHPClassSession("tipo boleano", __LINE__);
+fullStackPHPClassSession("comparação", __LINE__);
 
-$true = true;
-$false = false;
-
-var_dump($true, $false);
-
-$bestAge = ($userAge > 50);
-var_dump($bestAge);
-
-$a = 0;
-$b = 0.0;
-$c = "";
-$d = [];
-$e = null;
-
-var_dump($a, $b, $c, $d, $e);
-
-if ($a || $b || $c || $d || $e) {
-    var_dump(true);
-} else {
-    var_dump(false);
-}
+$relatedA = 5;
+$relatedB = "5";
+$relatedC = 10;
+$related = [
+    "a == b" => ($relatedA == $relatedB),
+    "a === b" => ($relatedA === $relatedB),
+    "a != b" => ($relatedA != $relatedB),
+    "a !== b" => ($relatedA !== $relatedB),
+    "a > c" => ($relatedA > $relatedC),
+    "a < c" => ($relatedA < $relatedC),
+    "a >= b" => ($relatedA >= $relatedB),
+    "a >= c" => ($relatedA >= $relatedC),
+    "a <= c" => ($relatedA <= $relatedC),
+];
+var_dump($related);
 
 
 /**
- * [ tipo callback ] call | closure
+ * [ lógicos ] https://php.net/manual/pt_BR/language.operators.logical.php
  */
-fullStackPHPClassSession("tipo callback", __LINE__);
+fullStackPHPClassSession("lógicos", __LINE__);
 
-$code =
-    "<article><h1>Um Call User Function!</h1></article>";
-$codeClear = call_user_func("strip_tags", $code);
-var_dump($code, $codeClear);
-
-$codeMore = function ($code) {
-    var_dump($code);
-};
-$codeMore("#BoraProgramar!");
+$logicA = true;
+$logicB = false;
+$logic = [
+    "a && b" => ($logicA && $logicB),
+    "a || b" => ($logicA || $logicB),
+    "a" => ($logicA),
+    "! a" => (!$logicA),
+    "! b" => (!$logicB),
+];
+var_dump($logic);
 
 
 /**
- * [ outros tipos ] string | array | objeto | numérico | null
+ * [ aritiméticos ] https://php.net/manual/pt_BR/language.operators.arithmetic.php
  */
-fullStackPHPClassSession("outros tipos", __LINE__);
+fullStackPHPClassSession("aritiméticos", __LINE__);
 
-$string = "Olá Mundo";
-$array = [$string];
-$object = new StdClass();
-$object->hello = $string;
-$null = null;
-$int = 12132;
-$float = 1.23213;
 
-var_dump([
-    $string,
-    $array,
-    $object,
-    $null,
-    $int,
-    $float
-]);
+$calcA = 5;
+$calcB = 10;
+$calc = [
+    "a + b" => ($calcA + $calcB),
+    "a - b" => ($calcA - $calcB),
+    "a * b" => ($calcA * $calcB),
+    "a / b" => ($calcA / $calcB),
+    "a % b" => ($calcA % $calcB),
+];
+var_dump($calc);
