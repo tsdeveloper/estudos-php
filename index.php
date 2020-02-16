@@ -8,6 +8,11 @@ fullStackPHPClassName("02.03 - Comandos de saída");
 fullStackPHPClassSession("echo", __LINE__);
 
 echo "<p>Olá Mundo!", " ", "<span class='tag'>#BoraProgramar!</span>", "</p>";
+$hello = "Olá mundo!"; //string;
+$code = "<span class='tag'>#BoraProgramar!</span>";
+
+echo "<p>$hello</p>";
+echo '<p>$hello</p>';
 /**
  * [ print ] https://php.net/manual/pt_BR/function.print.php
  */
