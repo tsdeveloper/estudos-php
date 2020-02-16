@@ -1,107 +1,80 @@
 <?php
 require __DIR__ . '/../../fullstackphp/fsphp.php';
-fullStackPHPClassName("02.06 - Arrays, vetores e pilhas");
+fullStackPHPClassName("02.08 - Estruturas de repetição");
 
-/**
- * [ arrays ] https://php.net/manual/pt_BR/language.types.array.php
+/*
+ * [ while ] https://php.net/manual/pt_BR/control-structures.while.php
+ * [ do while ] https://php.net/manual/pt_BR/control-structures.do.while.php
  */
-fullStackPHPClassSession("index array", __LINE__);
+fullStackPHPClassSession("while, do while", __LINE__);
 
-$arrA = array(1, 2, 3);
-$arrA = [0, 1, 2, 3];
+$looping = 1;
+$while = [];
 
-var_dump($arrA);
-
-
-$arrayIndex = [
-    "Brian",
-    "Angus",
-    "Malcolm"
-];
-$arrayIndex[] = "Cliff";
-$arrayIndex[] = "Phil";
-
-var_dump($arrayIndex);
-
-/**
- * [ associative array ] "key" => "value"
- */
-fullStackPHPClassSession("associative array", __LINE__);
-
-$arrayAssoc = [
-    "vocal" => "Brian",
-    "solo_guitar" => "Angus",
-    "base_guitar" => "Malcolm",
-    "bass_guitar" => "Cliff"
-];
-$arrayAssoc["drums"] = "Phil";
-$arrayAssoc["rock_band"] = "AC/DC";
-
-var_dump($arrayAssoc);
-
-/**
- * [ multidimensional array ] "key" => ["key" => "value"]
- */
-fullStackPHPClassSession("multidimensional array", __LINE__);
-
-$brian = ["Brian", "Mic"];
-$angus = ["name" => "Angus", "intrument" => "Guitar"];
-$instruments = [
-    $brian,
-    $angus
-];
-var_dump($instruments);
-
-var_dump([
-    "brian" => $brian,
-    "angus" => $angus
-]);
-
-/**
- * [ array access ] foreach(array as item) || foreach(array as key => value)
- */
-fullStackPHPClassSession("array access", __LINE__);
-
-$acdc = [
-    "band" => "AC/DC",
-    "vocal" => "Brian",
-    "solo_guitar" => "Angus",
-    "base_guitar" => "Malcolm",
-    "bass_guitar" => "Cliff",
-    "drums" => "Phil",
-];
-
-echo "<p>O vocal da banda AC/DC é {$acdc["vocal"]}, e junto com {$acdc['solo_guitar']} fazem um ótimo show de rock!</p>";
-
-$pearl = [
-    "band" => "Pearl Jam",
-    "vocal" => "Eddie",
-    "solo_guitar" => "Mike",
-    "base_guitar" => "Stone",
-    "bass_guitar" => "Jeff",
-    "drums" => "Jack",
-];
-
-$rockBands = [
-    "acdc" => $acdc,
-    "pearl_jam" => $pearl
-];
-
-var_dump($rockBands);
-
-echo "<p>{$rockBands['pearl_jam']['vocal']}</p>";
-
-foreach ($acdc as $item) {
-    echo "<p>{$item}</p>";
+while ($looping <= 5) {
+    $while[] = $looping;
+    $looping++;
 }
+var_dump($while);
 
-foreach ($acdc as $key => $value) {
-    echo "<p>{$value} is a {$key} of band!</p>";
+
+$looping = 5;
+$while = [];
+
+do {
+    $while[] = $looping;
+    $looping--;
+} while ($looping >= 1);
+var_dump($while);
+
+/*
+ * [ for ] https://php.net/manual/pt_BR/control-structures.for.php
+ */
+fullStackPHPClassSession("for", __LINE__);
+
+
+for ($i = 1; $i <= 10; $i++) {
+    echo "<p>{$i}</p>";
 }
 
 
-foreach ($rockBands as $rockBand) {
-    $art = "<article><h1>%s</h1><p>%s</p><p>%s</p><p>%s</p><p>%s</p><p>%s</p></article>";
-    vprintf($art, $rockBand);
+/**
+ * [ break ] https://php.net/manual/pt_BR/control-structures.break.php
+ * [ continue ] https://php.net/manual/pt_BR/control-structures.continue.php
+ */
+fullStackPHPClassSession("break, continue", __LINE__);
+
+
+for ($c = 1; $c <= 10; $c++) {
+    if ($c % 2 == 1) {
+        continue;
+    }
+
+    if ($c >= 10) {
+        break;
+    }
+
+    echo "<p>Pulou + 2 :: {$c}</p>";
 }
 
+
+/**
+ * [ foreach ] https://php.net/manual/pt_BR/control-structures.foreach.php
+ */
+fullStackPHPClassSession("foreach", __LINE__);
+
+
+$array = [];
+for ($ar = 0; $ar <= 2; $ar++) {
+    $array[] = $ar;
+}
+
+var_dump($array);
+
+foreach ($array as $item) {
+    var_dump($item);
+}
+
+foreach ($array as $key => $value) {
+    var_dump("{$key} = {$value}");
+}
