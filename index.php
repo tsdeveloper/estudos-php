@@ -1,80 +1,69 @@
 <?php
 require __DIR__ . '/../../fullstackphp/fsphp.php';
-fullStackPHPClassName("02.08 - Estruturas de repetição");
+fullStackPHPClassName("02.09 - Closures e generators");
 
 /*
- * [ while ] https://php.net/manual/pt_BR/control-structures.while.php
- * [ do while ] https://php.net/manual/pt_BR/control-structures.do.while.php
+ * [ closures ] https://php.net/manual/pt_BR/functions.anonymous.php
  */
-fullStackPHPClassSession("while, do while", __LINE__);
+fullStackPHPClassSession("closures", __LINE__);
 
-$looping = 1;
-$while = [];
+$myAge = function ($year) {
+    $age = date("Y") - $year;
+    return "<h5>Você tem {$age} anos!</h5>";
+};
 
-while ($looping <= 5) {
-    $while[] = $looping;
-    $looping++;
-}
-var_dump($while);
+echo $myAge(1986);
 
+$priceBrl = function ($price) {
+    return number_format($price, 2, ",", ".");
+};
 
-$looping = 5;
-$while = [];
+echo "<p>O projeto custa R$ {$priceBrl(3600)}. Vamos fechar?";
 
-do {
-    $while[] = $looping;
-    $looping--;
-} while ($looping >= 1);
-var_dump($while);
+$myCart = [];
+$myCart["totalPrice"] = 0;
+$cardAdd = function ($item, $qtd, $price) use (&$myCart) {
+    $myCart[$item] = $qtd * $price;
+    $myCart["totalPrice"] += $myCart[$item];
+};
+
+$cardAdd("HTML5", 1, 497);
+$cardAdd("jQuery", 2, 497);
+
+var_dump($myCart);
 
 /*
- * [ for ] https://php.net/manual/pt_BR/control-structures.for.php
+ * [ generators ] https://php.net/manual/pt_BR/language.generators.overview.php
  */
-fullStackPHPClassSession("for", __LINE__);
+fullStackPHPClassSession("generators", __LINE__);
 
+$iterator = 41; //4000000
 
-for ($i = 1; $i <= 10; $i++) {
-    echo "<p>{$i}</p>";
-}
-
-
-/**
- * [ break ] https://php.net/manual/pt_BR/control-structures.break.php
- * [ continue ] https://php.net/manual/pt_BR/control-structures.continue.php
- */
-fullStackPHPClassSession("break, continue", __LINE__);
-
-
-for ($c = 1; $c <= 10; $c++) {
-    if ($c % 2 == 1) {
-        continue;
+function showDates($days)
+{
+    $saveDate = [];
+    for ($day = 1; $day < $days; $day++) {
+        $saveDate[] = date("d/m/Y", strtotime("+{$day}days"));
     }
+    return $saveDate;
+}
 
-    if ($c >= 10) {
-        break;
+echo "<div style='text-align: center'>";
+foreach (showDates($iterator) as $date) {
+    echo "<small class='tag'>{$date}</small>" . PHP_EOL;
+}
+echo "</div>";
+
+
+function generatorDate($days)
+{
+    for ($day = 1; $day < $days; $day++) {
+        yield date("d/m/Y", strtotime("+{$day}days"));
     }
-
-    echo "<p>Pulou + 2 :: {$c}</p>";
 }
 
-
-/**
- * [ foreach ] https://php.net/manual/pt_BR/control-structures.foreach.php
- */
-fullStackPHPClassSession("foreach", __LINE__);
-
-
-$array = [];
-for ($ar = 0; $ar <= 2; $ar++) {
-    $array[] = $ar;
+echo "<div style='text-align: center'>";
+foreach (generatorDate($iterator) as $date) {
+    echo "<small class='tag' style='background-color: var(--green)'>{$date}</small>" . PHP_EOL;
 }
-
-var_dump($array);
-
-foreach ($array as $item) {
-    var_dump($item);
-}
-
-foreach ($array as $key => $value) {
-    var_dump("{$key} = {$value}");
-}
+echo "</div>";
