@@ -6,6 +6,8 @@
 ## Angular ##
 # compiled output
 dist/
+Arquivos do Módulo/
+*.zip
 tmp/
 app/**/*.js
 app/**/*.js.map
