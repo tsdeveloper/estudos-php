@@ -1,50 +1,74 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("02.11 - Trabalhando com funções");
+fullStackPHPClassName("02.12 - Constantes e constantes mágicas");
 
 /*
- * [ functions ] https://php.net/manual/pt_BR/language.functions.php
+ * [ constantes ] https://php.net/manual/pt_BR/language.constants.php
  */
-fullStackPHPClassSession("functions", __LINE__);
+fullStackPHPClassSession("constantes", __LINE__);
 
-require __DIR__ . "/functions.php";
-echo "<pre>";
-var_dump(functionName("Pearl Jam", "AC\DC", "Alter Bridge"));
-var_dump(functionName("Robson", "Kaue", "Gustavo"));
+define("COURSE", "Full Stack PHP");
+const AUTHOR = "Robson";
+
+$formation = true;
+if ($formation) {
+    define("COURSE_TYPE", "Formação");
+} else {
+    define("COURSE_TYPE", "Curso");
+}
+
+echo "<p>COURSE_TYPE COURSE AUTHOR</p>";
+echo "<p>{COURSE_TYPE} {COURSE} {AUTHOR}</p>";
+echo "<p>", COURSE_TYPE, " ", COURSE, " de ", AUTHOR, "</p>";
+echo "<p>" . COURSE_TYPE . " " . COURSE, " de " . AUTHOR . "</p>";
 
 
-var_dump(optionArgs("Robson"));
-var_dump(optionArgs("Robson", "Kaue"));
-var_dump(optionArgs("Robson", "Kaue", "Gustavo"));
-echo "</pre>";
+class Config
+{
+    const USER = "root";
+    const HOST = "localhost";
+}
+
+echo "<p>", Config::HOST, "</p>";
+echo "<p>", Config::USER, "</p>";
+
+
+var_dump(get_defined_constants(true)["user"]);
 
 /*
- * [ global access ] global $var
+ * [ constantes mágicas ] https://php.net/manual/pt_BR/language.constants.predefined.php
  */
-fullStackPHPClassSession("global access", __LINE__);
+fullStackPHPClassSession("constantes mágicas", __LINE__);
 
-$weight = 86;
-$height = 1.83;
-echo calcImc();
+var_dump([
+    __LINE__,
+    __FILE__,
+    __DIR__
+]);
 
+function fullStackPHP()
+{
+    return __FUNCTION__;
+}
 
-/*
- * [ static arguments ] static $var
- */
-fullStackPHPClassSession("static arguments", __LINE__);
-
-$pay = payTotal(200);
-$pay = payTotal(150);
-$pay = payTotal(500);
-
-echo $pay;
+var_dump(fullStackPHP());
 
 
-/*
- * [ dinamic arguments ] get_args | num_args
- */
-fullStackPHPClassSession("dinamic arguments", __LINE__);
+trait MyTrait
+{
+    public $traitName = __TRAIT__;
+}
 
-echo "<pre>";
-var_dump(myTeam("Kaue", "Gustavo", "Gah", "João"));
-echo "</pre>";
+
+class FsPHP
+{
+    use MyTrait;
+    public $className = __CLASS__;
+}
+
+var_dump(new FsPHP());
+
+
+require __DIR__ . "/MyClass.php";
+var_dump(new \Source\MyClass());
+var_dump(\Source\MyClass::class);
