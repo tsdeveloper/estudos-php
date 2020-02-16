@@ -1,42 +1,49 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("02.10 - Requisição de arquivos");
+fullStackPHPClassName("02.11 - Trabalhando com funções");
 
 /*
- * [ include ] https://php.net/manual/pt_BR/function.include.php
- * [ include_once ] https://php.net/manual/pt_BR/function.include-once.php
+ * [ functions ] https://php.net/manual/pt_BR/language.functions.php
  */
-fullStackPHPClassSession("include, include_once", __LINE__);
+fullStackPHPClassSession("functions", __LINE__);
 
-//include "file.php";
-//echo "<p>Continue</p>";
+require __DIR__ . "/functions.php";
 
-//include "header.php";
-include __DIR__ . "/header.php";
+var_dump(functionName("Pearl Jam", "AC\DC", "Alter Bridge"));
+var_dump(functionName("Robson", "Kaue", "Gustavo"));
 
-$profile = new StdClass();
-$profile->name = "Robson";
-$profile->company = "UpInside";
-$profile->email = "cursos@upinside.com.br";
-include __DIR__ . "/profile.php";
 
-$profile = new StdClass();
-$profile->name = "Kaue";
-$profile->company = "UpInside";
-$profile->email = "cursos@upinside.com.br";
-include __DIR__ . "/profile.php";
+var_dump(optionArgs("Robson"));
+var_dump(optionArgs("Robson", "Kaue"));
+var_dump(optionArgs("Robson", "Kaue", "Gustavo"));
+
 
 /*
- * [ require ] https://php.net/manual/pt_BR/function.require.php
- * [ require_once ] https://php.net/manual/pt_BR/function.require-once.php
+ * [ global access ] global $var
  */
-fullStackPHPClassSession("require, require_once", __LINE__);
+fullStackPHPClassSession("global access", __LINE__);
 
-//require "file.php";
-//echo "<p>Continue</p>";
+$weight = 86;
+$height = 1.83;
+echo calcImc();
 
-require __DIR__ . "/config.php";
-require_once __DIR__ . "/config.php";
 
-echo "<h1>" . COURSE . "</h1>";
+/*
+ * [ static arguments ] static $var
+ */
+fullStackPHPClassSession("static arguments", __LINE__);
 
+$pay = payTotal(200);
+$pay = payTotal(150);
+$pay = payTotal(500);
+
+echo $pay;
+
+
+/*
+ * [ dinamic arguments ] get_args | num_args
+ */
+fullStackPHPClassSession("dinamic arguments", __LINE__);
+
+
+var_dump(myTeam("Kaue", "Gustavo", "Gah", "João"));
