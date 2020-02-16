@@ -1,64 +1,107 @@
 <?php
-require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("02.03 - Comandos de saída");
+require __DIR__ . '/../../fullstackphp/fsphp.php';
+fullStackPHPClassName("02.04 - Variáveis e tipos de dados");
 
 /**
- * [ echo ] https://php.net/manual/pt_BR/function.echo.php
+ * [tipos de dados] https://php.net/manual/pt_BR/language.types.php
+ * [ variáveis ] https://php.net/manual/pt_BR/language.variables.php
  */
-fullStackPHPClassSession("echo", __LINE__);
+fullStackPHPClassSession("variáveis", __LINE__);
 
-echo "<p>Olá Mundo!", " ", "<span class='tag'>#BoraProgramar!</span>", "</p>";
-$hello = "Olá mundo!"; //string;
-$code = "<span class='tag'>#BoraProgramar!</span>";
+$userFirstName = "Robson";
+$userLastName = "Leite";
+echo "<h3>{$userFirstName} {$userLastName}</h3>";
 
-echo "<p>$hello</p>";
-echo '<p>$hello</p>';
+$user_first_name = $userFirstName;
+$user_last_name = $userLastName;
+echo "<h3>{$user_first_name} {$user_last_name}</h3>";
 
-$day = "dia";
-echo "<p>Falta 1 $day para o evento</p>";
-echo "<p>Falta 2 {$day} para o evento</p>";
+$userAge = "32";
+echo "<p>{$userFirstName} {$userLastName} <span class='tag'>tem {$userAge}</span></p>";
 
-echo '<h3>' . $hello . " " . $code . '</h3>';
-?>
+$userEmail = "<p>cursos@upinside.com.br</p>";
+echo $userEmail;
 
-<h4><?php echo $hello;?></h4>
-<h4><?= $hello; ?></h4> 
+//variável variável
+$company = "UpInside";
+$$company = "Treinamentos";
+echo "<h3>{$company} {$UpInside}</h3>";
 
-<?php
 
+$calcA = 10;
+$calcB = 20;
+//$calcB = $calcA;
+$calcB = &$calcA;
+$calcB = 50;
 
-/**
- * [ print ] https://php.net/manual/pt_BR/function.print.php
- */
-fullStackPHPClassSession("print", __LINE__);
-
-print $hello;
-print $code;
-/**
- * [ print_r ] https://php.net/manual/pt_BR/function.print-r.php
- */
-fullStackPHPClassSession("print_r", __LINE__);
-$array = [
-    'company' => 'Web Developer',
-    'course' => 'PHP',
-    'class' => 'Comandos de saída',
-];
-print_r($array);
-echo "<pre>", print_r($array), "</pre>";
-
-/**
- * [ printf ] https://php.net/manual/pt_BR/function.printf.php
- */
-fullStackPHPClassSession("printf", __LINE__);
+var_dump([
+    "a" => $calcA,
+    "b" => $calcB
+]);
 
 
 /**
- * [ vprintf ] https://php.net/manual/pt_BR/function.vprintf.php
+ * [ tipo boleano ] true | false
  */
-fullStackPHPClassSession("vprintf", __LINE__);
+fullStackPHPClassSession("tipo boleano", __LINE__);
+
+$true = true;
+$false = false;
+
+var_dump($true, $false);
+
+$bestAge = ($userAge > 50);
+var_dump($bestAge);
+
+$a = 0;
+$b = 0.0;
+$c = "";
+$d = [];
+$e = null;
+
+var_dump($a, $b, $c, $d, $e);
+
+if ($a || $b || $c || $d || $e) {
+    var_dump(true);
+} else {
+    var_dump(false);
+}
 
 
 /**
- * [ var_dump ] https://php.net/manual/pt_BR/function.var-dump.php
+ * [ tipo callback ] call | closure
  */
-fullStackPHPClassSession("var_dump", __LINE__);
+fullStackPHPClassSession("tipo callback", __LINE__);
+
+$code =
+    "<article><h1>Um Call User Function!</h1></article>";
+$codeClear = call_user_func("strip_tags", $code);
+var_dump($code, $codeClear);
+
+$codeMore = function ($code) {
+    var_dump($code);
+};
+$codeMore("#BoraProgramar!");
+
+
+/**
+ * [ outros tipos ] string | array | objeto | numérico | null
+ */
+fullStackPHPClassSession("outros tipos", __LINE__);
+
+$string = "Olá Mundo";
+$array = [$string];
+$object = new StdClass();
+$object->hello = $string;
+$null = null;
+$int = 12132;
+$float = 1.23213;
+
+var_dump([
+    $string,
+    $array,
+    $object,
+    $null,
+    $int,
+    $float
+]);
