@@ -1,69 +1,42 @@
 <?php
 require __DIR__ . '/../../fullstackphp/fsphp.php';
-fullStackPHPClassName("02.09 - Closures e generators");
+fullStackPHPClassName("02.10 - Requisição de arquivos");
 
 /*
- * [ closures ] https://php.net/manual/pt_BR/functions.anonymous.php
+ * [ include ] https://php.net/manual/pt_BR/function.include.php
+ * [ include_once ] https://php.net/manual/pt_BR/function.include-once.php
  */
-fullStackPHPClassSession("closures", __LINE__);
+fullStackPHPClassSession("include, include_once", __LINE__);
 
-$myAge = function ($year) {
-    $age = date("Y") - $year;
-    return "<h5>Você tem {$age} anos!</h5>";
-};
+//include "file.php";
+//echo "<p>Continue</p>";
 
-echo $myAge(1986);
+//include "header.php";
+include __DIR__ . "/header.php";
 
-$priceBrl = function ($price) {
-    return number_format($price, 2, ",", ".");
-};
+$profile = new StdClass();
+$profile->name = "Robson";
+$profile->company = "UpInside";
+$profile->email = "cursos@upinside.com.br";
+include __DIR__ . "/profile.php";
 
-echo "<p>O projeto custa R$ {$priceBrl(3600)}. Vamos fechar?";
-
-$myCart = [];
-$myCart["totalPrice"] = 0;
-$cardAdd = function ($item, $qtd, $price) use (&$myCart) {
-    $myCart[$item] = $qtd * $price;
-    $myCart["totalPrice"] += $myCart[$item];
-};
-
-$cardAdd("HTML5", 1, 497);
-$cardAdd("jQuery", 2, 497);
-
-var_dump($myCart);
+$profile = new StdClass();
+$profile->name = "Kaue";
+$profile->company = "UpInside";
+$profile->email = "cursos@upinside.com.br";
+include __DIR__ . "/profile.php";
 
 /*
- * [ generators ] https://php.net/manual/pt_BR/language.generators.overview.php
+ * [ require ] https://php.net/manual/pt_BR/function.require.php
+ * [ require_once ] https://php.net/manual/pt_BR/function.require-once.php
  */
-fullStackPHPClassSession("generators", __LINE__);
+fullStackPHPClassSession("require, require_once", __LINE__);
 
-$iterator = 41; //4000000
+//require "file.php";
+//echo "<p>Continue</p>";
 
-function showDates($days)
-{
-    $saveDate = [];
-    for ($day = 1; $day < $days; $day++) {
-        $saveDate[] = date("d/m/Y", strtotime("+{$day}days"));
-    }
-    return $saveDate;
-}
+require __DIR__ . "/config.php";
+require_once __DIR__ . "/config.php";
 
-echo "<div style='text-align: center'>";
-foreach (showDates($iterator) as $date) {
-    echo "<small class='tag'>{$date}</small>" . PHP_EOL;
-}
-echo "</div>";
+echo "<h1>" . COURSE . "</h1>";
 
-
-function generatorDate($days)
-{
-    for ($day = 1; $day < $days; $day++) {
-        yield date("d/m/Y", strtotime("+{$day}days"));
-    }
-}
-
-echo "<div style='text-align: center'>";
-foreach (generatorDate($iterator) as $date) {
-    echo "<small class='tag' style='background-color: var(--green)'>{$date}</small>" . PHP_EOL;
-}
-echo "</div>";
