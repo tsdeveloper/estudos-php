@@ -32,12 +32,19 @@ echo '<h3>' . $hello . " " . $code . '</h3>';
  */
 fullStackPHPClassSession("print", __LINE__);
 
-
+print $hello;
+print $code;
 /**
  * [ print_r ] https://php.net/manual/pt_BR/function.print-r.php
  */
 fullStackPHPClassSession("print_r", __LINE__);
-
+$array = [
+    'company' => 'Web Developer',
+    'course' => 'PHP',
+    'class' => 'Comandos de saída',
+];
+print_r($array);
+echo "<pre>", print_r($array), "</pre>";
 
 /**
  * [ printf ] https://php.net/manual/pt_BR/function.printf.php
