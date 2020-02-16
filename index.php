@@ -13,6 +13,20 @@ $code = "<span class='tag'>#BoraProgramar!</span>";
 
 echo "<p>$hello</p>";
 echo '<p>$hello</p>';
+
+$day = "dia";
+echo "<p>Falta 1 $day para o evento</p>";
+echo "<p>Falta 2 {$day} para o evento</p>";
+
+echo '<h3>' . $hello . " " . $code . '</h3>';
+?>
+
+<h4><?php echo $hello;?></h4>
+<h4><?= $hello; ?></h4> 
+
+<?php
+
+
 /**
  * [ print ] https://php.net/manual/pt_BR/function.print.php
  */
