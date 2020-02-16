@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../../fullstackphp/fsphp.php';
+require __DIR__ . '/fullstackphp/fsphp.php';
 fullStackPHPClassName("02.10 - Requisição de arquivos");
 
 /*
