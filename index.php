@@ -1,64 +1,44 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("02.03 - Comandos de saída");
+fullStackPHPClassName("04.02 - Classes, propriedades e objetos");
 
-/**
- * [ echo ] https://php.net/manual/pt_BR/function.echo.php
+/*
+ * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
  */
-fullStackPHPClassSession("echo", __LINE__);
+fullStackPHPClassSession("classe e objeto", __LINE__);
 
-echo "<p>Olá Mundo!", " ", "<span class='tag'>#BoraProgramar!</span>", "</p>";
-$hello = "Olá mundo!"; //string;
-$code = "<span class='tag'>#BoraProgramar!</span>";
+require __DIR__ . "/classes/User.php";
 
-echo "<p>$hello</p>";
-echo '<p>$hello</p>';
-
-$day = "dia";
-echo "<p>Falta 1 $day para o evento</p>";
-echo "<p>Falta 2 {$day} para o evento</p>";
-
-echo '<h3>' . $hello . " " . $code . '</h3>';
-?>
-
-<h4><?php echo $hello;?></h4>
-<h4><?= $hello; ?></h4> 
-
-<?php
+$user = new User();
+var_dump($user);
 
 
-/**
- * [ print ] https://php.net/manual/pt_BR/function.print.php
+/*
+ * [ propriedades ] http://php.net/manual/pt_BR/language.oop5.properties.php
  */
-fullStackPHPClassSession("print", __LINE__);
+fullStackPHPClassSession("propriedades", __LINE__);
 
-print $hello;
-print $code;
-/**
- * [ print_r ] https://php.net/manual/pt_BR/function.print-r.php
+$user->firstName = "Robson";
+$user->lastName = "Leite";
+$user->email = "cursos";
+
+var_dump($user);
+
+echo "<p>O e-mail de {$user->firstName} é {$user->email}!</p>";
+
+
+/*
+ * [ métodos ] São as funções que definem o comportamento e a regra de negócios de uma classe
  */
-fullStackPHPClassSession("print_r", __LINE__);
-$array = [
-    'company' => 'Web Developer',
-    'course' => 'PHP',
-    'class' => 'Comandos de saída',
-];
-print_r($array);
-echo "<pre>", print_r($array), "</pre>";
+fullStackPHPClassSession("métodos", __LINE__);
 
-/**
- * [ printf ] https://php.net/manual/pt_BR/function.printf.php
- */
-fullStackPHPClassSession("printf", __LINE__);
+$user->setFirstName("Robson");
+$user->setLastName("Leite");
 
+if (!$user->setEmail("cursos@upinside.com.br")) {
+    echo "<p class='trigger error'>O e-mail {$user->getEmail()} não é válido!</p>";
+}
 
-/**
- * [ vprintf ] https://php.net/manual/pt_BR/function.vprintf.php
- */
-fullStackPHPClassSession("vprintf", __LINE__);
+$user->email = "cursos";
 
-
-/**
- * [ var_dump ] https://php.net/manual/pt_BR/function.var-dump.php
- */
-fullStackPHPClassSession("var_dump", __LINE__);
+var_dump($user);
