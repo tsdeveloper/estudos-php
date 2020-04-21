@@ -2,13 +2,16 @@
 
 class User
 {
+    //ATRIBUTOS \ PROPRIEDADES
     public $firstName;
     public $lastName;
     public $email;
+    
 
     /**
      * @return mixed
      */
+    //GET = Obter
     public function getFirstName()
     {
         return $this->firstName;
@@ -17,6 +20,7 @@ class User
     /**
      * @param $firstName
      */
+    //SET = Atribuir | SETAR
     public function setFirstName($firstName)
     {
         $this->firstName = filter_var($firstName, FILTER_SANITIZE_STRIPPED);
