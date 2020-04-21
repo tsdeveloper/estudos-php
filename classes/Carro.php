@@ -1,6 +1,4 @@
 <?php
-namespace Carro;
-
 class Carro {
 
     //ATRIBUTOS
