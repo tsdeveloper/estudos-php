@@ -5,6 +5,7 @@
 ### Angular ###
 ## Angular ##
 # compiled output
+aulas/*
 dist/
 Arquivos do Módulo/
 *.zip
