@@ -2,4 +2,7 @@
 
 namespace Source\Loading;
 
-class Company {}
+class Company {
+
+
+}

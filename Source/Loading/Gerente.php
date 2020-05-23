@@ -4,9 +4,14 @@ namespace Source\Loading;
 
 class Gerente extends Funcionario{
     
-        
-    public function calcularBonificacao() {
-        $this->cpf = "9999999";
-        return $this->salario * 0.20;
+
+    public function mostrarCPF() {
+
+        return $this->cpf;
     }
+
+    public function calcularBonificacao() {
+        return $this->salario * 0.10;
+    }
+
 }

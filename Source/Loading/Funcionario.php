@@ -4,7 +4,7 @@ namespace Source\Loading;
 
 class Funcionario {
     protected $nome;
-    private $cpf;
+    protected $cpf;
     public $salario;
 
     public function __construct($nome, $cpf, $salario) {
@@ -12,7 +12,7 @@ class Funcionario {
         $this->cpf = $cpf;
         $this->salario = $salario;
     }
-     private function calcularBonificacao() {
+    public function calcularBonificacao() {
             return $this->salario * 0.10;
     }
 
@@ -21,7 +21,11 @@ class Funcionario {
     }
 
     public function mostrarCPF() {
-        return $this->nome;
+        return $this->cpf;
     }
-    
+
+    //INTERFACE = CONTRATO
+    //CRUD = Create (CRIAR), READY (BUSCAR/SELECIONAR), UPDATE (ATUALIZAR) e DELETE (APAGAR/EXCLUIR)
+
 }
+
