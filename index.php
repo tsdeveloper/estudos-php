@@ -12,8 +12,8 @@ fullStackPHPClassSession("Métodos", __LINE__);
 
 require_once("vendor/autoload.php");
 
-$gerente = new \Source\Loading\Gerente("Gerente 1", "123456789", 5000);
-$analista = new \Source\Loading\Analista("Analista 1", "123456789", 5000);
+$gerente = new \Source\Loading\Classes\Gerente("Gerente 1", "123456789", 5000);
+$analista = new \Source\Loading\Classes\Analista("Analista 1", "123456789", 5000);
 
 
 echo "A bonificação do Gerente é : {$gerente->calcularBonificacao()}</p>";
