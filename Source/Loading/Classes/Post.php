@@ -23,10 +23,16 @@ class Post implements ICrudBase
     public function create()
     {
         try {
-            // TODO: Implement create() method.
-            $sql = 'INSERT INTO message (dataCreated, userName, msg) values (?,?,?)';
 
-            $this->pdo->prepare($sql)->execute([$this->getDataCreated(), $this->getUserName(), $this->getMsg()]);
+            $data = [
+                'dataCreated' => $this->getDataCreated(),
+                'userName' => $this->getUserName(),
+                'msg' => $this->getMsg(),
+            ];
+            // TODO: Implement create() method.
+            $sql = 'INSERT INTO message (dataCreated, userName, msg) values (:dataCreated, :userName, :msg)';
+
+            $this->pdo->prepare($sql)->execute($data);
 
         } catch (PDOException $exception) {
             var_dump($exception);
