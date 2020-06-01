@@ -11,7 +11,20 @@ fullStackPHPClassSession("Sistema de Comentários", __LINE__);
 require_once("Config/Config.php");
 require_once("vendor/autoload.php");
 
+//Importação de Class
+use Source\Loading\Loading\Classes\Post;
+
+$post = new Post($pdo);
 $userName = $_POST['userName'] ?? "";
+$msg = $_POST['msg'] ?? "";
+
+
+if (isset($userName) && !empty($userName) && isset($msg) && !empty($msg) ) {
+
+    $post->setUserName($userName);
+    $post->setMsg($msg);
+        $post->create();
+}
 
 ?>
 
@@ -30,29 +43,29 @@ $userName = $_POST['userName'] ?? "";
 </head>
 <body>
 <div class="container">
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Sistema de Comentários</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Cadastre as informações abaixo</h6>
-        <?= !empty($userName) ? "<p class='alert alert-info'>$userName</p>" : ''; ?>
-        <form method="post" action="/">
-            <div class="form-group">
-                <label for="userName">User Comment</label>
-                <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter user name">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Sistema de Comentários</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Cadastre as informações abaixo</h6>
+            <?= !empty($userName) ? "<p class='alert alert-info'>$userName</p>" : ''; ?>
+            <form method="post" action="/">
+                <div class="form-group">
+                    <label for="userName">User Comment</label>
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter user name">
 
-            </div>
-            <div class="form-group">
-                <label for="msg">Message</label>
-                <textarea type="text" class="form-control" name="msg" id="msg" row="3" placeholder="Enter msg">
+                </div>
+                <div class="form-group">
+                    <label for="msg">Message</label>
+                    <textarea type="text" class="form-control" name="msg" id="msg" row="3" placeholder="Enter msg">
                 </textarea>
-            </div>
+                </div>
 
-            <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
 </div>
 </body>
