@@ -13,6 +13,7 @@ class Post implements ICrudBase
     private $dataCreated;
     private $userName;
     private $msg;
+    private $postAll = [];
 
     public function __construct($pdo)
     {
@@ -49,6 +50,26 @@ class Post implements ICrudBase
     public function ready()
     {
         // TODO: Implement ready() method.
+        try {
+
+            $data = [
+                'dataCreated' => $this->getDataCreated(),
+                'userName' => $this->getUserName(),
+                'msg' => $this->getMsg(),
+            ];
+            // TODO: Implement create() method.
+            $sql = 'SELECT * FROM  message';
+
+            $stm = $this->pdo->query($sql);
+            while ($post = $stm->fetch()){
+                $this->postAll[] = $post;
+            }
+//            var_dump($this->postAll);
+            return $this->postAll;
+        } catch (PDOException $exception) {
+            var_dump($exception);
+        }
+
     }
 
     public function delete()
