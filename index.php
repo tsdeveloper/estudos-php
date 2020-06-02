@@ -1,74 +1,73 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName('02.12 - Constantes e constantes mágicas');
-
+fullStackPHPClassName("Aula 05.01-Banco de Dados#Aula-Extra");
+//echo '<pre>';
 /*
- * [ constantes ] https://php.net/manual/pt_BR/language.constants.php
+ * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
  */
-fullStackPHPClassSession('constantes', __LINE__);
+fullStackPHPClassSession("Sistema de Comentários", __LINE__);
 
-define('COURSE', 'Full Stack PHP');
-const AUTHOR = 'Robson';
+//Obrigatorio
+require_once("Config/Config.php");
+require_once("vendor/autoload.php");
 
-$formation = true;
-if ($formation) {
-    define('COURSE_TYPE', 'Formação');
-} else {
-    define('COURSE_TYPE', 'Curso');
+//Importação de Class
+use Source\Loading\Loading\Classes\Post;
+
+$post = new Post($pdo);
+$userName = $_POST['userName'] ?? "";
+$msg = $_POST['msg'] ?? "";
+
+
+if (isset($userName) && !empty($userName) && isset($msg) && !empty($msg) ) {
+
+    $post->setUserName($userName);
+    $post->setMsg($msg);
+        $post->create();
 }
 
-echo '<p>COURSE_TYPE COURSE AUTHOR</p>';
-echo '<p>{COURSE_TYPE} {COURSE} {AUTHOR}</p>';
-echo '<p>', COURSE_TYPE, ' ', COURSE, ' de ', AUTHOR, '</p>';
-echo '<p>' . COURSE_TYPE . ' ' . COURSE, ' de ' . AUTHOR . '</p>';
+?>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 
 
-class Config
-{
-    const USER = 'root';
-    const HOST = 'localhost';
-}
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Sistema de Comentários</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Cadastre as informações abaixo</h6>
+            <?= !empty($userName) ? "<p class='alert alert-info'>$userName</p>" : ''; ?>
+            <form method="post" action="/">
+                <div class="form-group">
+                    <label for="userName">User Comment</label>
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter user name">
 
-echo '<p>', Config::HOST, '</p>';
-echo '<p>', Config::USER, '</p>';
+                </div>
+                <div class="form-group">
+                    <label for="msg">Message</label>
+                    <textarea type="text" class="form-control" name="msg" id="msg" row="3" placeholder="Enter msg">
+                </textarea>
+                </div>
 
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-var_dump(get_defined_constants(true)['user']);
+</div>
+</body>
+</html>
 
-/*
- * [ constantes mágicas ] https://php.net/manual/pt_BR/language.constants.predefined.php
- */
-fullStackPHPClassSession('constantes mágicas', __LINE__);
-
-var_dump([
-    __LINE__,
-    __FILE__,
-    __DIR__
-]);
-
-function fullStackPHP()
-{
-    return __FUNCTION__;
-}
-
-var_dump(fullStackPHP());
-
-
-trait MyTrait
-{
-    public $traitName = __TRAIT__;
-}
-
-
-class FsPHP
-{
-    use MyTrait;
-    public $className = __CLASS__;
-}
-
-var_dump(new FsPHP());
-
-
-require __DIR__ . '/MyClass.php';
-var_dump(new \Source\MyClass());
-var_dump(\Source\MyClass::class);
