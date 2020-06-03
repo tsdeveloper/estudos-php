@@ -1,12 +1,14 @@
 <?php
 
 
-namespace Source\Loading\Loading\Classes;
+namespace Source\Loading\Classes;
 
 
+use PDO;
+use PDOException;
 use Source\Loading\Interfaces\ICrudBase;
 
-class Post implements ICrudBase
+class Message implements ICrudBase
 {
 
     private $pdo;
@@ -52,20 +54,14 @@ class Post implements ICrudBase
         // TODO: Implement ready() method.
         try {
 
-            $data = [
-                'dataCreated' => $this->getDataCreated(),
-                'userName' => $this->getUserName(),
-                'msg' => $this->getMsg(),
-            ];
             // TODO: Implement create() method.
             $sql = 'SELECT * FROM  message';
 
             $stm = $this->pdo->query($sql);
-            while ($post = $stm->fetch()){
-                $this->postAll[] = $post;
-            }
-//            var_dump($this->postAll);
-            return $this->postAll;
+            $result = $stm->fetchAll();
+//            var_dump($result);
+
+            return $result;
         } catch (PDOException $exception) {
             var_dump($exception);
         }
