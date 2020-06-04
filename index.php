@@ -15,6 +15,8 @@ require_once("vendor/autoload.php");
 //Importação de Class
 
 $message = new Message(Connect::getInstance());
+$instance1 = Connect::getInstance();
+$instance2 = Connect::getInstance();
 $messageAll = $message->ready();
 $userName = $_POST['userName'] ?? "";
 $msg = $_POST['msg'] ?? "";
@@ -23,6 +25,10 @@ $msg = $_POST['msg'] ?? "";
 //    var_dump($p['userName']);
 //}
 
+var_dump(
+        $instance1,
+        $instance2
+);
 
 if (isset($userName) && !empty($userName) && isset($msg) && !empty($msg) ) {
 
