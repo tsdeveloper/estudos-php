@@ -6,30 +6,10 @@ fullStackPHPClassName("Aula 05.01-Banco de Dados#Aula-Extra");
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
  */
 fullStackPHPClassSession("Sistema de Comentários", __LINE__);
-use Source\Loading\Classes\Message;
-use Source\Loading\Database\Connect;
+
 
 //Obrigatorio
 require_once("vendor/autoload.php");
-
-//Importação de Class
-
-$message = new Message(Connect::getInstance());
-$messageAll = $message->ready();
-$userName = $_POST['userName'] ?? "";
-$msg = $_POST['msg'] ?? "";
-
-//foreach ($postAll as $p) {
-//    var_dump($p['userName']);
-//}
-
-
-if (isset($userName) && !empty($userName) && isset($msg) && !empty($msg) ) {
-
-    $message->setUserName($userName);
-    $message->setMsg($msg);
-        $message->create();
-}
 
 
  ?>
@@ -79,23 +59,6 @@ if (isset($userName) && !empty($userName) && isset($msg) && !empty($msg) ) {
 
 </div>
 
-<div class="container d-flex justify-content-around mt-3">
-    <?php  foreach ($messageAll as $p) {?>
-    <div class="col-4">
-        <div class="card">
-            <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title"><?= $p->userName; ?></h5>
-                <p class="card-text alert alert-info"><?= $p->dataCreated; ?></p>
-                <p class="card-text alert alert-success" ><?= $p->msg; ?></p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <?php }?>
-
-
-</div>
 </body>
 </html>
 
