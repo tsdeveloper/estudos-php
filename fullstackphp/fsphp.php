@@ -9,7 +9,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 
 /**
- * [ PHP Basic Config ] Configurações basicas do sistema
+ * [ PHP Basic Database ] Configurações basicas do sistema
  * Configura o timezone da aplicação
  * Define a função para output de erros.
  */

@@ -6,14 +6,33 @@ fullStackPHPClassName("Aula 05.01-Banco de Dados#Aula-Extra");
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
  */
 fullStackPHPClassSession("Sistema de Comentários", __LINE__);
+use Source\Loading\Classes\Message;
+use Source\Loading\Database\Connect;
 
 //Obrigatorio
-require_once("Config/Config.php");
 require_once("vendor/autoload.php");
 
-$userName = $_POST['userName'] ?? "";
+//Importação de Class
 
-?>
+$message = new Message(Connect::getInstance());
+$messageAll = $message->ready();
+$userName = $_POST['userName'] ?? "";
+$msg = $_POST['msg'] ?? "";
+
+//foreach ($postAll as $p) {
+//    var_dump($p['userName']);
+//}
+
+
+if (isset($userName) && !empty($userName) && isset($msg) && !empty($msg) ) {
+
+    $message->setUserName($userName);
+    $message->setMsg($msg);
+        $message->create();
+}
+
+
+ ?>
 
 <!doctype html>
 <html lang="en">
@@ -30,29 +49,51 @@ $userName = $_POST['userName'] ?? "";
 </head>
 <body>
 <div class="container">
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Sistema de Comentários</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Cadastre as informações abaixo</h6>
-        <?= !empty($userName) ? "<p class='alert alert-info'>$userName</p>" : ''; ?>
-        <form method="post" action="/">
-            <div class="form-group">
-                <label for="userName">User Comment</label>
-                <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter user name">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Sistema de Comentários</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Cadastre as informações abaixo</h6>
+            <?= !empty($userName) ? "<p class='alert alert-info'>$userName</p>" : ''; ?>
+            <form method="post" action="/">
+                <div class="form-group">
+                    <label for="userName">User Comment</label>
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter user name">
 
-            </div>
-            <div class="form-group">
-                <label for="msg">Message</label>
-                <textarea type="text" class="form-control" name="msg" id="msg" row="3" placeholder="Enter msg">
+                </div>
+                <div class="form-group">
+                    <label for="msg">Message</label>
+                    <textarea type="text" class="form-control" name="msg" id="msg" row="3" placeholder="Enter msg">
                 </textarea>
-            </div>
+                </div>
 
-            <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+
+
     </div>
+
+
+
 </div>
+
+<div class="container d-flex justify-content-around mt-3">
+    <?php  foreach ($messageAll as $p) {?>
+    <div class="col-4">
+        <div class="card">
+            <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title"><?= $p->userName; ?></h5>
+                <p class="card-text alert alert-info"><?= $p->dataCreated; ?></p>
+                <p class="card-text alert alert-success" ><?= $p->msg; ?></p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <?php }?>
+
 
 </div>
 </body>
