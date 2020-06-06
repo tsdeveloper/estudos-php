@@ -23,7 +23,6 @@ $msg = $_POST['msg'] ?? "";
 //    var_dump($p['userName']);
 //}
 
-var_dump($messageAll);
 
 
 if (isset($userName) && !empty($userName) && isset($msg) && !empty($msg) ) {
@@ -82,19 +81,22 @@ if (isset($userName) && !empty($userName) && isset($msg) && !empty($msg) ) {
 </div>
 
 <div class="container d-flex justify-content-around mt-3">
-    <?php  foreach ($messageAll as $p) {?>
-        <div class="col-4">
-            <div class="card">
-                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title"><?= $p->userName; ?></h5>
-                    <p class="card-text alert alert-info"><?= $p->dataCreated; ?></p>
-                    <p class="card-text alert alert-success" ><?= $p->msg; ?></p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="row">
+        <?php  foreach ($messageAll as $p) {?>
+            <div class="col-4">
+                <div class="card">
+                    <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $p->userName; ?></h5>
+                        <p class="card-text alert alert-info"><?= $p->dataCreated; ?></p>
+                        <p class="card-text alert alert-success" ><?= $p->msg; ?></p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    <?php }?>
+        <?php }?>
+    </div>
+
 
 
 </div>
