@@ -28,16 +28,22 @@ class Message implements ICrudBase
         try {
 
             $data = [
-                'dataCreated' => $this->getDataCreated(),
-                'userName' => $this->getUserName(),
-                'msg' => $this->getMsg(),
+                'dataCreated' => date("Y-m-d H:i:s"),
+                'userName' => 'Developer - ' . date("Y-m-d H:i:s"),
+                'msg' => 'Testes Msg',
             ];
+            $this->pdo->beginTransaction();
+
             // TODO: Implement create() method.
-            $sql = 'INSERT INTO message (dataCreated, userName, msg) values (:dataCreated, :userName, :msg)';
+            $this->pdo->query("INSERT INTO message (dataCreated, userName, msg45) values ('{$data['dataCreated']}', '{$data['userName']}', '{$data['msg']}')");
 
-            $this->pdo->prepare($sql)->execute($data);
+            $messageId = $this->pdo->lastInsertId();
+            $this->pdo->query("INSERT INTO message (dataCreated, userName, msg331) values ('{$data['dataCreated']}', '{$data['userName']}', '{$data['msg']}')");
 
+//            $this->pdo->prepare($sql)->execute($data);
+            $this->pdo->commit();
         } catch (PDOException $exception) {
+            $this->pdo->rollback();
             var_dump($exception);
         }
 
