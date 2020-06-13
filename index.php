@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("Aula 05.01-Banco de Dados#Aula-Extra");
+fullStackPHPClassName("Aula a05.07-pdo-statement");
 //echo '<pre>';
 /*
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
