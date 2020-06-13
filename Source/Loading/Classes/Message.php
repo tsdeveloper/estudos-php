@@ -61,13 +61,13 @@ class Message implements ICrudBase
         try {
 
             // TODO: Implement create() method.
-            $sql = 'SELECT * FROM  message';
+            $sql = 'SELECT userName FROM  message';
 
-            $stm = $this->pdo->query($sql);
-            $result = $stm->fetchAll();
-//            var_dump($result);
+//            $stm = $this->pdo->query($sql);
+            $stm = $this->pdo->prepare($sql);
+            $stm->execute();
 
-            return $result;
+            return $stm;
         } catch (PDOException $exception) {
             var_dump($exception);
         }

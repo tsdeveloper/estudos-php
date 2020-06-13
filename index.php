@@ -5,7 +5,9 @@ fullStackPHPClassName("Aula a05.07-pdo-statement");
 /*
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
  */
-fullStackPHPClassSession("Sistema de Comentários", __LINE__);
+
+fullStackPHPClassSession("prepared statement", __LINE__);
+
 use Source\Loading\Classes\Message;
 use Source\Loading\Database\Connect;
 
@@ -14,94 +16,163 @@ require_once("vendor/autoload.php");
 
 //Importação de Class
 
-$message = new Message(Connect::getInstance());
-$instance1 = Connect::getInstance();
-$instance2 = Connect::getInstance();
-$messageAll = $message->ready();
-$userName = $_POST['userName'] ?? "";
-$msg = $_POST['msg'] ?? "";
+$pdo = Connect::getInstance();
 
-//foreach ($postAll as $p) {
-//    var_dump($p['userName']);
-//}
+// TODO: Implement ready() method.
+try {
 
-var_dump(
-        $instance1,
-        $instance2
-);
+    // TODO: Implement create() method.
+    $sql = 'SELECT userName FROM  message';
 
-if (isset($userName) && !empty($userName) && isset($msg) && !empty($msg) ) {
+//            $stm = $this->pdo->query($sql);
+    $stm = $pdo->prepare($sql);
+    $stm->execute();
 
-    $message->setUserName($userName);
-    $message->setMsg($msg);
-        $message->create();
+
+} catch (PDOException $exception) {
+    var_dump($exception);
 }
 
-
- ?>
-
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+var_dump(
+    $stm,
+    $stm->rowCount(),
+    $stm->columnCount(),
+    $stm->fetch()
+//    $messageAll->fetchAll()  //traz todos os registros dos banco
+);
 
 
-</head>
-<body>
-<div class="container">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Sistema de Comentários</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Cadastre as informações abaixo</h6>
-            <?= !empty($userName) ? "<p class='alert alert-info'>$userName</p>" : ''; ?>
-            <form method="post" action="/">
-                <div class="form-group">
-                    <label for="userName">User Comment</label>
-                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter user name">
+fullStackPHPClassSession("stm bind value", __LINE__);
 
-                </div>
-                <div class="form-group">
-                    <label for="msg">Message</label>
-                    <textarea type="text" class="form-control" name="msg" id="msg" row="3" placeholder="Enter msg">
-                </textarea>
-                </div>
+$pdo = Connect::getInstance();
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
-        </div>
+// TODO: Implement ready() method.
+try {
+
+    // TODO: Implement create() method.
+    $sql = 'SELECT * FROM  message WHERE userName = :userName AND msg = :msg  LIMIT 5';
+
+//            $stm = $this->pdo->query($sql);
+    $stm = $pdo->prepare($sql);
+    $stm->bindValue(':userName', 'Developer');
+    $stm->bindValue(':msg', 'Developer');
+
+    $stm->execute();
 
 
-    </div>
+} catch (PDOException $exception) {
+    var_dump($exception);
+}
+
+var_dump(
+    $stm,
+    $stm->fetchAll()
+//    $messageAll->fetchAll()  //traz todos os registros dos banco
+);
+
+
+fullStackPHPClassSession("stm bind param", __LINE__);
+
+$pdo = Connect::getInstance();
+
+// TODO: Implement ready() method.
+try {
+
+    // TODO: Implement create() method.
+    $sql = 'SELECT * FROM  message WHERE userName = :userName  LIMIT 5';
+
+    $userName = 'Developer';
+
+    $stm = $pdo->prepare($sql);
+    $stm->bindParam(':userName', $userName);
+    $stm->execute();
+
+
+} catch (PDOException $exception) {
+    var_dump($exception);
+}
+
+var_dump(
+    $stm,
+    $stm->fetchAll()
+//    $messageAll->fetchAll()  //traz todos os registros dos banco
+);
+
+
+fullStackPHPClassSession("stm execute array", __LINE__);
+
+$pdo = Connect::getInstance();
+
+$array = [
+    "login" => "debora",
+    "senha" => '123'
+];
+
+// TODO: Implement ready() method.
+try {
+
+    // TODO: Implement create() method.
+    $sql = 'SELECT * FROM  login WHERE login = :login AND senha = :senha LIMIT 5';
+
+
+    $stm = $pdo->prepare($sql);
+
+    $stm->execute($array);
+
+
+} catch (PDOException $exception) {
+    var_dump($exception);
+}
+
+var_dump(
+    $stm,
+    $stm->fetchAll()
+//    $messageAll->fetchAll()  //traz todos os registros dos banco
+);
 
 
 
-</div>
+fullStackPHPClassSession("bind column", __LINE__);
 
-<div class="container d-flex justify-content-around mt-3">
-    <?php  foreach ($messageAll as $p) {?>
-    <div class="col-4">
-        <div class="card">
-            <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title"><?= $p->userName; ?></h5>
-                <p class="card-text alert alert-info"><?= $p->dataCreated; ?></p>
-                <p class="card-text alert alert-success" ><?= $p->msg; ?></p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <?php }?>
+$pdo = Connect::getInstance();
+
+// TODO: Implement ready() method.
+try {
+
+    // TODO: Implement create() method.
+    $sql = 'SELECT * FROM  login  LIMIT 5';
 
 
-</div>
-</body>
-</html>
+    $stm = $pdo->prepare($sql);
+
+    $stm->execute();
+    $resultado =   $stm->fetchAll();
+    echo 'Mostrando todos os registros 1';
+    var_dump(
+        $resultado
+    );
+
+    echo 'Mostrando todos os registros 2';
+    var_dump(
+        $resultado
+    );
+
+    echo 'Mostrando todos os registros 3';
+    var_dump(
+        $resultado
+    );
+//
+//    $stm->bindColumn(2, $login);
+//    $stm->bindColumn(3, $senha);
+
+
+} catch (PDOException $exception) {
+    var_dump($exception);
+}
+echo 'Mostrando os nomes dos registros';
+foreach ($resultado as $variavelLogin) {
+    echo  "<p>Nome de login é: {$variavelLogin->login}, a senha é: {$variavelLogin->senha}</p>";
+
+}
+
 
