@@ -2,9 +2,11 @@
 require __DIR__ . '/fullstackphp/fsphp.php';
 fullStackPHPClassName("05.07 - PDOStatement e bind modes");
 
-require __DIR__ . "/../source/autoload.php";
 
-use Source\Database\Connect;
+use Source\Loading\Database\Connect;
+
+//Obrigatorio
+require_once("vendor/autoload.php");
 
 /**
  * [ prepare ] http://php.net/manual/pt_BR/pdo.prepare.php
