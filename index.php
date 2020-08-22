@@ -1,16 +1,37 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("02.03 - Comandos de saída");
+fullStackPHPClassName("05.07 - PDOStatement e bind modes");
 
-$adicionado2 = "Aqui novas alterações do git2";
-$adicionado3 = "Aqui novas alterações do git3";
+require __DIR__ . "/../source/autoload.php";
+
+use Source\Database\Connect;
+
 /**
- * [ echo ] https://php.net/manual/pt_BR/function.echo.php
+ * [ prepare ] http://php.net/manual/pt_BR/pdo.prepare.php
  */
-fullStackPHPClassSession("tudo minusculo", __LINE__);
-var_dump("vidraça");
+fullStackPHPClassSession("prepared statement", __LINE__);
 
 
-fullStackPHPClassSession("tudo maiúsculo", __LINE__);
+/*
+ * [ bind value ] http://php.net/manual/pt_BR/pdostatement.bindvalue.php
+ *
+ */
+fullStackPHPClassSession("stmt bind value", __LINE__);
 
-var_dump(strtoupper("vidraça"));
+
+/*
+ * [ bind param ] http://php.net/manual/pt_BR/pdostatement.bindparam.php
+ */
+fullStackPHPClassSession("stmt bind param", __LINE__);
+
+
+/*
+ * [ execute ] http://php.net/manual/pt_BR/pdostatement.execute.php
+ */
+fullStackPHPClassSession("stmt execute array", __LINE__);
+
+
+/*
+ * [ bind column ] http://php.net/manual/en/pdostatement.bindcolumn.php
+ */
+fullStackPHPClassSession("bind column", __LINE__);
