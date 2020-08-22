@@ -12,6 +12,31 @@ require_once("vendor/autoload.php");
  * [ prepare ] http://php.net/manual/pt_BR/pdo.prepare.php
  */
 fullStackPHPClassSession("prepared statement", __LINE__);
+$pdo = Connect::getInstance();
+
+// TODO: Implement ready() method.
+try {
+
+    // TODO: Implement create() method.
+    $sql = 'SELECT userName FROM  message';
+
+//            $stm = $this->pdo->query($sql);
+    $stm = $pdo->prepare($sql);
+    $stm->execute();
+
+
+} catch (PDOException $exception) {
+    var_dump($exception);
+}
+
+var_dump(
+    $stm,
+    $stm->rowCount(),
+    $stm->columnCount(),
+    $stm->fetch()
+//    $messageAll->fetchAll()  //traz todos os registros dos banco
+);
+
 
 
 /*

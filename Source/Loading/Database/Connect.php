@@ -9,8 +9,8 @@ class Connect
 
     private const HOST = 'localhost';
     private const USER = 'root';
-    private const DBNAME = 'blog';
-    private const PASSWD = 'root';
+    private const DBNAME = 'blogasds';
+    private const PASSWD = '23432';
 
     private static $instance;
 
