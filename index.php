@@ -8,15 +8,29 @@ fullStackPHPClassName("a05.08-modelo-layer");
 
 fullStackPHPClassSession("layer", __LINE__);
 
-
-use Source\Loading\Classes\Message;
-use Source\Loading\Database\Connect;
+//IMPORTAÇÃO DA CLASS MODEL
+use Source\Loading\Classes\Model;
+use Source\Loading\Classes\UserModel;
 
 //Obrigatorio
 require_once("vendor/autoload.php");
 
-//Importação de Class
+$layer = new ReflectionClass(Model::class);
 
-fullStackPHPClassSession("model", __LINE__);
+var_dump(
+    $layer->getDefaultProperties(),
+    $layer->getMethods(),
+    $layer->getName(),
+    $layer->getNamespaceName()
+);
 
 
+fullStackPHPClassSession("userModel", __LINE__);
+
+$userModel = new UserModel();
+
+var_dump(
+    $userModel,
+    get_class_methods($userModel),
+    get_parent_class($userModel)
+);
