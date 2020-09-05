@@ -13,7 +13,19 @@ class UserModel extends Model
     protected static $entity = 'users';
 
     public function  bootstrap() {}
-    public function  load($id) {}
+
+    public function  load(int $id,  string $columns = "*" ) {
+            $load = $this->read("SELECT {$columns} FROM " . self::$entity .  " where id = :id"
+                                                                                ,"id={$id}");
+            if ($this->fail() || !$load->rowCount()) {
+                $this->message = "Usuário não encontrado para o id informado!";
+                return null;
+            }
+
+//            return $load->fetchObject(__CLASS__);
+            return $load->fetch();
+    }
+
     public function  find($email) {}
     public function  all($limit = 30, $offset = 0) {}
     public function  save() {}
