@@ -9,14 +9,17 @@ fullStackPHPClassName("a05.09-pdo-statement-ready");
 fullStackPHPClassSession("load", __LINE__);
 
 //IMPORTAÇÃO DA CLASS MODEL
-use Source\Loading\Classes\Model;
+use Source\Loading\Classes;
 use Source\Loading\Classes\UserModel;
 
 //Obrigatorio
 require_once("vendor/autoload.php");
+//Instância de um objeto
+
+
 
 $userModel = new UserModel();
-$user = $userModel->load(2);
+$user = $userModel->load(10, 'email, document');
 
 var_dump(
     $user

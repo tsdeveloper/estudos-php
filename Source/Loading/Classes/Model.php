@@ -49,13 +49,28 @@ abstract class Model
 
     protected  function read(string $select, string $params = null) {
             try {
+
                 $stm = Connect::getInstance()->prepare($select);
                 if ($params)
                 {
+                    /*vai converter a string $params em um array
+                    $params = "id=7"
+
+                     $params = [
+                        "id" => 7
+                    ]
+                    */
+                    echo '$params antes da conversão';
+
                     parse_str($params, $params);
-                    var_dump($select);
+
+                    echo '$params depois da conversão';
+
+
                     foreach ($params as $key => $value) {
+
                         $type = (is_numeric($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR);
+
                         $stm->bindValue(":{$key}", $value, $type);
                     }
                 }

@@ -8,7 +8,7 @@ class Connect {
 
     private const HOST = 'localhost';
     private const USER = 'root';
-    private const DBNAME = 'estudos-php';
+    private const DBNAME = 'estudosphp';
     private const PASSWD = 'root';
 
     private const OPTIONS = [
