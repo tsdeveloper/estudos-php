@@ -22,9 +22,7 @@ class UserModel extends Model
                 $this->message = "Usuário não encontrado para o id informado!";
                 return null;
             }
-
-//            return $load->fetchObject(__CLASS__);
-            return $load->fetch();
+            $load->fetch();
     }
 
 }
