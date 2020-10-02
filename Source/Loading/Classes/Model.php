@@ -76,6 +76,7 @@ abstract class Model
                 }
 
                 $stm->execute();
+                return $stm;
 
             } catch (\PDOException $exception) {
                 $this->fail = $exception;

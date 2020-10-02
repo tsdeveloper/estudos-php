@@ -19,7 +19,7 @@ require_once("vendor/autoload.php");
 
 
 $userModel = new UserModel();
-$user = $userModel->load(10, 'email, document');
+$user = $userModel->load(1, 'email, document');
 
 var_dump(
     $user
