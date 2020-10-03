@@ -25,6 +25,11 @@ abstract class Model
         $this->data->$name = $value;
     }
 
+    public function __get($name)
+    {
+        // TODO: Implement __get() method.
+    }
+
     /** @return null|object */
     public function data(): ?object
     {
@@ -47,7 +52,7 @@ abstract class Model
     protected  function update() {}
     protected  function delete() {}
 
-    protected  function read(string $select, string $params = null) {
+    protected  function read(string $select, string $params = null): ?\PDOStatement {
             try {
 
                 $stm = Connect::getInstance()->prepare($select);
@@ -65,7 +70,6 @@ abstract class Model
                     parse_str($params, $params);
 
                     echo '$params depois da conversão';
-
 
                     foreach ($params as $key => $value) {
 

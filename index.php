@@ -17,9 +17,13 @@ require_once("vendor/autoload.php");
 //Instância de um objeto
 
 
-
+//AND = e
+//OR =
 $userModel = new UserModel();
-$user = $userModel->load(1, 'email, document');
+$user = $userModel->load("id=1&document=1");
+/*$minhaStr = "id=1&name=User";
+
+parse_str($minhaStr, $minhaArray);*/
 
 var_dump(
     $user
