@@ -6,7 +6,7 @@ namespace Source\Loading\Classes;
 
 use http\Client\Curl\User;
 
-class UserModel extends Model
+class ProductModel extends Model
 {
     /** @var array $safe no update or create */
     protected static $safe = ['id', 'created_at', 'updated_at'];
@@ -17,17 +17,17 @@ class UserModel extends Model
     /**
      * @return string
      */
-    public  function bootstrap($first_name, $last_name, $email, $document): ?UserModel
+    public  function bootstrap($id, $name, $price, $qtd): ?ProductModel
     {
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
-        $this->email = $email;
-        $this->document = $document;
+        $this->id = $id;
+        $this->name = $name;
+        $this->price = $price;
+        $this->qtd = $qtd;
 
         return $this;
     }
 
-    public function  load(string $params,  string $columns = "*", string $operadorWhere = " AND " ): ?UserModel {
+    public function  load(string $params,  string $columns = "*", string $operadorWhere = " AND " ): ?ProductModel {
 
 
         parse_str($params, $strOptionWhere);
@@ -54,7 +54,7 @@ class UserModel extends Model
           return  $load->fetchObject(__CLASS__);
     }
 
-    public function find($email, string $columns = "*"): ?UserModel
+    public function find($email, string $columns = "*"): ?ProductModel
     {
         $find = $this->read("SELECT {$columns} FROM " . self::$entity . " WHERE email = :email", "email={$email}");
         if ($this->fail() || !$find->rowCount()) {
@@ -67,7 +67,6 @@ class UserModel extends Model
     public function save() {
 
     }
-
 
 
 

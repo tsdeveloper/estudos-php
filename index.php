@@ -11,6 +11,8 @@ fullStackPHPClassSession("load", __LINE__);
 //IMPORTAÇÃO DA CLASS MODEL
 use Source\Loading\Classes;
 use Source\Loading\Classes\UserModel;
+use Source\Loading\Classes\ProductModel;
+use Source\Loading\Classes\CarrinhoModel;
 
 //Obrigatorio
 require_once("vendor/autoload.php");
@@ -20,13 +22,24 @@ require_once("vendor/autoload.php");
 //AND = e
 //OR =
 $userModel = new UserModel();
-$user = $userModel->load("id=1&document=1");
-/*$minhaStr = "id=1&name=User";
+$product = new ProductModel();
+$carrinho = new CarrinhoModel();
+$productModel = $product->bootstrap(1, 'product1', 100, 2);
 
-parse_str($minhaStr, $minhaArray);*/
+$carrinhoModel = $carrinho->bootstrap(0.00,$productModel);
+
+$product->bootstrap(2, 'product2', 200, 2);
+//
+$carrinhoModel->bootstrap(0.00,$productModel);
+
+//$carrinho->total = array_sum($carrinho->produtos['price']);
+
+
+
 
 var_dump(
-    $user
+    $carrinhoModel,
+    $productModel
 );
 
 fullStackPHPClassSession("userModel", __LINE__);

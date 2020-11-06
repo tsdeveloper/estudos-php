@@ -6,28 +6,28 @@ namespace Source\Loading\Classes;
 
 use http\Client\Curl\User;
 
-class UserModel extends Model
+class CarrinhoModel extends Model
 {
     /** @var array $safe no update or create */
     protected static $safe = ['id', 'created_at', 'updated_at'];
 
     /** @var string $entity database table */
-    protected static $entity = 'users';
+    protected static $entity = 'carts';
 
     /**
      * @return string
      */
-    public  function bootstrap($first_name, $last_name, $email, $document): ?UserModel
+    public  function &bootstrap($total, $product): ?CarrinhoModel
     {
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
-        $this->email = $email;
-        $this->document = $document;
+        $this->total = $total;
+        $this->produtos = [];
+         $this->produtos =[$product];
+
 
         return $this;
     }
 
-    public function  load(string $params,  string $columns = "*", string $operadorWhere = " AND " ): ?UserModel {
+    public function  load(string $params,  string $columns = "*", string $operadorWhere = " AND " ): ?CarrinhoModel {
 
 
         parse_str($params, $strOptionWhere);
@@ -54,7 +54,7 @@ class UserModel extends Model
           return  $load->fetchObject(__CLASS__);
     }
 
-    public function find($email, string $columns = "*"): ?UserModel
+    public function find($email, string $columns = "*"): ?CarrinhoModel
     {
         $find = $this->read("SELECT {$columns} FROM " . self::$entity . " WHERE email = :email", "email={$email}");
         if ($this->fail() || !$find->rowCount()) {
@@ -64,10 +64,9 @@ class UserModel extends Model
         return $find->fetchObject(__CLASS__);
     }
 
-    public function save() {
+    public function getProducts() {
 
     }
-
 
 
 

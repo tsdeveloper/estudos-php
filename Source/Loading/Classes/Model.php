@@ -15,19 +15,23 @@ abstract class Model
     /** @var string|null */
     protected $message;
 
-    public function  __set($name, $value)
+    public function __set($name, $value)
     {
         // TODO: Implement __set() method.
         if (empty($this->data)) {
             $this->data = new \stdClass();
         }
 
-        $this->data->$name = $value;
+        if (is_array($value) && !empty($value)){
+            $this->data->$name = [$value];
+        }else {
+            $this->data->$name = $value;
+        }
     }
 
     public function __get($name)
     {
-        // TODO: Implement __get() method.
+        return ($this->data->$name ?? null);
     }
 
     /** @return null|object */
@@ -48,48 +52,61 @@ abstract class Model
         return $this->message;
     }
 
-    protected   function create() {}
-    protected  function update() {}
-    protected  function delete() {}
-
-    protected  function read(string $select, string $params = null): ?\PDOStatement {
-            try {
-
-                $stm = Connect::getInstance()->prepare($select);
-                if ($params)
-                {
-                    /*vai converter a string $params em um array
-                    $params = "id=7"
-
-                     $params = [
-                        "id" => 7
-                    ]
-                    */
-                    echo '$params antes da conversão';
-
-                    parse_str($params, $params);
-
-                    echo '$params depois da conversão';
-
-                    foreach ($params as $key => $value) {
-
-                        $type = (is_numeric($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR);
-
-                        $stm->bindValue(":{$key}", $value, $type);
-                    }
-                }
-
-                $stm->execute();
-                return $stm;
-
-            } catch (\PDOException $exception) {
-                $this->fail = $exception;
-                return null;
-            }
+    protected function create()
+    {
     }
 
-    protected  function safe(): ?array {}
-    private  function filter() {}
+    protected function update()
+    {
+    }
+
+    protected function delete()
+    {
+    }
+
+    protected function read(string $select, string $params = null): ?\PDOStatement
+    {
+        try {
+
+            $stm = Connect::getInstance()->prepare($select);
+            if ($params) {
+                /*vai converter a string $params em um array
+                $params = "id=7"
+
+                 $params = [
+                    "id" => 7
+                ]
+                */
+                echo '$params antes da conversão';
+
+                parse_str($params, $params);
+
+                echo '$params depois da conversão';
+
+                foreach ($params as $key => $value) {
+
+                    $type = (is_numeric($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR);
+
+                    $stm->bindValue(":{$key}", $value, $type);
+                }
+            }
+
+            $stm->execute();
+            return $stm;
+
+        } catch (\PDOException $exception) {
+            $this->fail = $exception;
+            return null;
+        }
+    }
+
+    protected function safe(): ?array
+    {
+    }
+
+    private function filter()
+    {
+    }
 
 }
 
