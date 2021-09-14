@@ -29,7 +29,6 @@ class UserModel extends Model
 
     public function  load(string $params,  string $columns = "*", string $operadorWhere = " AND " ): ?UserModel {
 
-
         parse_str($params, $strOptionWhere);
 
         $where = null;
@@ -40,12 +39,8 @@ class UserModel extends Model
             }else if(count($strOptionWhere) > 1)
                     $where  .= "{$operadorWhere} {$key} = :{$key}";
         }
-
-
-            $load = $this->read("SELECT {$columns} FROM " . self::$entity .  " where {$where} 
-            AND document = :document"
+            $load = $this->read("SELECT {$columns} FROM " . self::$entity .  " where {$where}"
             ,$params);
-
 
             if ($this->fail() || !$load->rowCount()) {
                 $this->message = "Usuário não encontrado para o id informado!";

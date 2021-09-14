@@ -8,8 +8,8 @@ class Connect {
 
     private const HOST = 'localhost';
     private const USER = 'root';
-    private const DBNAME = 'estudosphp';
-    private const PASSWD = 'root';
+    private const DBNAME = 'fullstackphp';
+    private const PASSWD = 'root123';
 
     private const OPTIONS = [
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8', //Configura para aceitar carateres especiais

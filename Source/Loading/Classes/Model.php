@@ -68,15 +68,21 @@ abstract class Model
     {
         try {
 
-            $stm = Connect::getInstance()->prepare($select);
-            if ($params) {
-                /*vai converter a string $params em um array
-                $params = "id=7"
+            parse_str($params, $strOptionWhere);
 
-                 $params = [
-                    "id" => 7
-                ]
-                */
+            $where = null;
+            foreach ($strOptionWhere as $key => $value){
+
+                if (empty($where)) {
+                    $where  = "{$key} = :{$key}";
+                }else if(count($strOptionWhere) > 1)
+                    $where  .= "{$operadorWhere} {$key} = :{$key}";
+            }
+
+            $stm = Connect::getInstance()->prepare($select);
+
+            if ($params) {
+
                 echo '$params antes da conversão';
 
                 parse_str($params, $params);
@@ -84,6 +90,7 @@ abstract class Model
                 echo '$params depois da conversão';
 
                 foreach ($params as $key => $value) {
+
 
                     $type = (is_numeric($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR);
 
