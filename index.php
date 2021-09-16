@@ -6,7 +6,7 @@ fullStackPHPClassName("a05.09-pdo-statement-ready");
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
  */
 
-fullStackPHPClassSession("load", __LINE__);
+fullStackPHPClassSession("bootstrap - preenchendo campos para salvar", __LINE__);
 
 //IMPORTAÇÃO DA CLASS MODEL
 use Source\Loading\Classes;
@@ -22,31 +22,25 @@ echo '<pre>';
 //AND = e
 //OR =
 
-
-$userModel = new UserModel();
-$userModel = $userModel->load("id=32&first_name=Alexandre");
-
-
-
-/*
-$product = new ProductModel();
-$carrinho = new CarrinhoModel();
-$productModel = $product->bootstrap(1, 'product1', 100, 2);
-
-$carrinhoModel = $carrinho->bootstrap(0.00,$productModel);
-
-$product->bootstrap(2, 'product2', 200, 2);
-//
-$carrinhoModel->bootstrap(0.00,$productModel);*/
-
-//$carrinho->total = array_sum($carrinho->produtos['price']);
-
-
-
-
+$model = new UserModel();
+$userModel = $model
+                    ->bootstrap("Aluno", "Aluno 2019",
+                        "aluno2019@email.com.br", ""
+                                );
 var_dump(
     $userModel
 );
 
-fullStackPHPClassSession("userModel", __LINE__);
+fullStackPHPClassSession("save - método para salvar o objeto userModel", __LINE__);
+
+$userModel->id = 10;
+$userModel->created_at = date('Y/m/d H:i');
+
+//16,Daniel,Santos,daniel41@email.com.br,,2021-09-14 20:47:14,
+if (!$model->find($userModel->email)){
+    echo "<p class='trigger warning'>Cadastro com Sucesso</p>";
+    $userModel->save();
+}else {
+    echo "<p class='trigger accept'>Já Cadastrado</p>";
+}
 echo '</pre>';

@@ -76,7 +76,7 @@ abstract class Model
                 if (empty($where)) {
                     $where  = "{$key} = :{$key}";
                 }else if(count($strOptionWhere) > 1)
-                    $where  .= "{$operadorWhere} {$key} = :{$key}";
+                    $where  .= "{$strOptionWhere} {$key} = :{$key}";
             }
 
             $stm = Connect::getInstance()->prepare($select);
