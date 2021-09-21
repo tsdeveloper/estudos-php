@@ -6,7 +6,7 @@ fullStackPHPClassName("a05.09-pdo-statement-ready");
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
  */
 
-fullStackPHPClassSession("load", __LINE__);
+fullStackPHPClassSession("bootstrap user model", __LINE__);
 
 //IMPORTAÇÃO DA CLASS MODEL
 use Source\Loading\Classes;
@@ -23,30 +23,30 @@ echo '<pre>';
 //OR =
 
 
-$userModel = new UserModel();
-$userModel = $userModel->load("id=32&first_name=Alexandre");
-
-
-
-/*
-$product = new ProductModel();
-$carrinho = new CarrinhoModel();
-$productModel = $product->bootstrap(1, 'product1', 100, 2);
-
-$carrinhoModel = $carrinho->bootstrap(0.00,$productModel);
-
-$product->bootstrap(2, 'product2', 200, 2);
-//
-$carrinhoModel->bootstrap(0.00,$productModel);*/
-
-//$carrinho->total = array_sum($carrinho->produtos['price']);
-
-
-
+$model = new UserModel();
+$userModel = $model->bootstrap(
+    "Usuario100",
+    "Developer",
+    "usuario100@email.com",
+    "123456789"
+);
 
 var_dump(
     $userModel
 );
 
-fullStackPHPClassSession("userModel", __LINE__);
+fullStackPHPClassSession("save create", __LINE__);
+$userModel->id = 10;
+$userModel->created_at = date("Y/m/d H:i");
+
+
+if (!$model->find($userModel->email))
+{
+    echo "<p class='trigger warning'></p>";
+    $userModel->save();
+}else {
+    echo "<p class='trigger warning'></p>";
+}
+
+
 echo '</pre>';

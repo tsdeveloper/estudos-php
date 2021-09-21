@@ -52,7 +52,7 @@ abstract class Model
         return $this->message;
     }
 
-    protected function create()
+    protected function create(string $entity, array $data)
     {
     }
 
@@ -107,8 +107,15 @@ abstract class Model
         }
     }
 
-    protected function safe(): ?array
+    /*Método para trazer somente colunas que não autogerenciadas pelo
+    Banco de Dados*/
+    protected function safe()
     {
+        $safe = (array)$this->data;
+        foreach (static::$safe as $unset) {
+            var_dump($unset);
+        }
+        var_dump($safe);
     }
 
     private function filter()

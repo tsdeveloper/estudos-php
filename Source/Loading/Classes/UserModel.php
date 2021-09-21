@@ -60,7 +60,7 @@ class UserModel extends Model
     }
 
     public function save() {
-
+        $this->safe();
     }
 
 
