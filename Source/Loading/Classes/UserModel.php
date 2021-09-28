@@ -59,9 +59,48 @@ class UserModel extends Model
         return $find->fetchObject(__CLASS__);
     }
 
-    public function save() {
-        $this->safe();
+    public function save(): ?UserModel {
+
+
+        if ($this->required()){
+                return null;
+            }
+
+       //Update User
+        if (!empty($this->id)){
+            $userId=  $this->id;
+        }
+         //Create User
+         if (empty($this->id)){
+             if ($this->find($this->email)){
+                 $this->message = "O e-mail informado já está cadastrado";
+                 return null;
+             }
+             $userId = $this->create(self::$entity,$this->safe());
+             if ($this->fail()) {
+                 $this->message = "Erro ao cadastrar, verifique os dados";
+             }
+             $this->message = "Cadastro realizado com sucesso";
+         }
+
+        $this->data = $this->read("SELECT * FROM users WHERE id = :id", "id={$userId}")->fetch();
+        return $this;
     }
+
+    private function required(): bool {
+        if (empty($this->email)){
+            $this->message = "Nome, sobrenome e e-email são obrigatórios";
+            return false;
+        }
+
+        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)){
+            $this->message = "O e-email informado não parece válido";
+            return false;
+        }
+
+        return true;
+    }
+
 
 
 

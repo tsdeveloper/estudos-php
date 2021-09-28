@@ -15,20 +15,32 @@ abstract class Model
     /** @var string|null */
     protected $message;
 
+    /**
+     * @param $name
+     * @param $value
+     */
     public function __set($name, $value)
     {
-        // TODO: Implement __set() method.
         if (empty($this->data)) {
             $this->data = new \stdClass();
         }
 
-        if (is_array($value) && !empty($value)){
-            $this->data->$name = [$value];
-        }else {
-            $this->data->$name = $value;
-        }
+        $this->data->$name = $value;
     }
 
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function __isset($name)
+    {
+        return isset($this->data->$name);
+    }
+
+    /**
+     * @param $name
+     * @return null
+     */
     public function __get($name)
     {
         return ($this->data->$name ?? null);
@@ -54,6 +66,18 @@ abstract class Model
 
     protected function create(string $entity, array $data)
     {
+        try {
+            $columns = implode(", ", array_keys($data));
+            $values = ":" . implode(", :", array_keys($data));
+
+            $stmt = Connect::getInstance()->prepare("INSERT INTO {$entity} ({$columns}) VALUES ({$values})");
+            $stmt->execute($this->filter($data));
+
+            return Connect::getInstance()->lastInsertId();
+        } catch (\PDOException $exception) {
+            $this->fail = $exception;
+            return null;
+        }
     }
 
     protected function update()
@@ -67,40 +91,17 @@ abstract class Model
     protected function read(string $select, string $params = null): ?\PDOStatement
     {
         try {
-
-            parse_str($params, $strOptionWhere);
-
-            $where = null;
-            foreach ($strOptionWhere as $key => $value){
-
-                if (empty($where)) {
-                    $where  = "{$key} = :{$key}";
-                }else if(count($strOptionWhere) > 1)
-                    $where  .= "{$operadorWhere} {$key} = :{$key}";
-            }
-
-            $stm = Connect::getInstance()->prepare($select);
-
+            $stmt = Connect::getInstance()->prepare($select);
             if ($params) {
-
-                echo '$params antes da conversão';
-
                 parse_str($params, $params);
-
-                echo '$params depois da conversão';
-
                 foreach ($params as $key => $value) {
-
-
                     $type = (is_numeric($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR);
-
-                    $stm->bindValue(":{$key}", $value, $type);
+                    $stmt->bindValue(":{$key}", $value, $type);
                 }
             }
 
-            $stm->execute();
-            return $stm;
-
+            $stmt->execute();
+            return $stmt;
         } catch (\PDOException $exception) {
             $this->fail = $exception;
             return null;
@@ -109,17 +110,23 @@ abstract class Model
 
     /*Método para trazer somente colunas que não autogerenciadas pelo
     Banco de Dados*/
-    protected function safe()
+    protected function safe(): ?array
     {
         $safe = (array)$this->data;
         foreach (static::$safe as $unset) {
-            var_dump($unset);
+            unset($safe[$unset]);
         }
-        var_dump($safe);
+        return $safe;
     }
 
-    private function filter()
+    protected function filter(array $data): ?array
     {
+        $filter = [];
+        foreach ($data as $key => $value) {
+            $filter[$key] = (is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS));
+        }
+
+        return $filter;
     }
 
 }

@@ -25,9 +25,9 @@ echo '<pre>';
 
 $model = new UserModel();
 $userModel = $model->bootstrap(
-    "Usuario100",
+    "Is Peter\; DELETE FROM TABLES;  & funny?",
     "Developer",
-    "usuario100@email.com",
+    "usuario9" . date("Y/m/d H:i"),
     "123456789"
 );
 
@@ -38,15 +38,20 @@ var_dump(
 fullStackPHPClassSession("save create", __LINE__);
 $userModel->id = 10;
 $userModel->created_at = date("Y/m/d H:i");
+fullStackPHPClassSession("antes de validar", __LINE__);
 
+
+fullStackPHPClassSession("depois de validar", __LINE__);
 
 if (!$model->find($userModel->email))
 {
-    echo "<p class='trigger warning'></p>";
+    echo "<p class='trigger warning'>CADASTRADO CONCLUÍDO</p>";
     $userModel->save();
 }else {
-    echo "<p class='trigger warning'></p>";
+    echo "<p class='trigger warning'>USER JÁ CADASTRADO</p>";
 }
 
-
+var_dump(
+    $userModel
+);
 echo '</pre>';
