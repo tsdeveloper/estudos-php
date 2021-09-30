@@ -61,14 +61,29 @@ class UserModel extends Model
 
     public function save(): ?UserModel {
 
-
-        if ($this->required()){
+        if (!$this->required()){
                 return null;
             }
 
        //Update User
         if (!empty($this->id)){
             $userId=  $this->id;
+            $email = $this->read("SELECT id FROM users WHERE email = :email AND id != :id",
+                        "email={$this->email}&id={$userId}");
+            if ($email->rowCount()){
+                $this->message = "O e-mail informado já está cadastrado";
+                return null;
+            }
+
+            $this->update(self::$entity, $this->safe(), "id = :id", "id={$userId}" );
+            if ($this->fail()){
+                $this->message = "Erro ao atualizar {$this->email}, verifique os dados";
+                return null;
+            }
+
+            $this->message = "Usuário com email: {$this->email} foi atualizado com sucesso!";
+
+
         }
          //Create User
          if (empty($this->id)){
@@ -88,7 +103,8 @@ class UserModel extends Model
     }
 
     private function required(): bool {
-        if (empty($this->email)){
+        if (empty($this->first_name) || empty($this->last_name)
+            || empty($this->email)){
             $this->message = "Nome, sobrenome e e-email são obrigatórios";
             return false;
         }

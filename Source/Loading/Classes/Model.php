@@ -80,8 +80,35 @@ abstract class Model
         }
     }
 
-    protected function update()
+    protected function update(string $entity, array $data, string $terms, string $params)
     {
+        try {
+            $listColums = [];
+            foreach ($data as $col => $value) {
+                $listColums[] = "{$col} = :{$col}";
+            }
+            $listColums = implode(", ", $listColums);
+
+            echo '<p>Dados do Array sem alteração</p>';
+            var_dump($data);
+
+            $stmt = Connect::getInstance()->prepare("UPDATE {$entity} SET {$listColums} WHERE {$terms}");
+            parse_str($params, $params);
+            echo '<p>Parametro convertido para array</p>';
+            var_dump($params);
+
+            var_dump();
+
+            echo '<p>Juntando o array com os dados usuário + id do usuário</p>';
+
+            $stmt->execute($this->filter(array_merge($data, $params)));
+
+            return ($stmt->rowCount() ?? 1);
+
+        } catch (\PDOException $exception) {
+            $this->fail = $exception;
+            return null;
+        }
     }
 
     protected function delete()
