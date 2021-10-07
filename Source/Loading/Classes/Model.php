@@ -76,6 +76,7 @@ abstract class Model
             return Connect::getInstance()->lastInsertId();
         } catch (\PDOException $exception) {
             $this->fail = $exception;
+
             return null;
         }
     }
@@ -97,8 +98,7 @@ abstract class Model
             echo '<p>Parametro convertido para array</p>';
             var_dump($params);
 
-            var_dump();
-
+        
             echo '<p>Juntando o array com os dados usuário + id do usuário</p>';
 
             $stmt->execute($this->filter(array_merge($data, $params)));
