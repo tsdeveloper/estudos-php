@@ -101,6 +101,22 @@ class UserModel extends Model
         $this->data = $this->read("SELECT * FROM users WHERE id = :id", "id={$userId}")->fetch();
         return $this;
     }
+    public function destroy() {
+
+        if (!empty($this->email)){
+         $this->delete(self::$entity, "email = :email", "email={$this->email}");
+
+            if ($this->fail()){
+                $this->message = "Erro ao deletar o {$this->email}, verifique os dados";
+                return null;
+            }
+        }
+
+        $this->message = "Usuário com email: {$this->email} foi deletado com sucesso!";
+        $this->data = null;
+        return $this;
+
+    }
 
     private function required(): bool {
         if (empty($this->first_name) || empty($this->last_name)

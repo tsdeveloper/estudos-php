@@ -98,7 +98,7 @@ abstract class Model
             echo '<p>Parametro convertido para array</p>';
             var_dump($params);
 
-        
+
             echo '<p>Juntando o array com os dados usuário + id do usuário</p>';
 
             $stmt->execute($this->filter(array_merge($data, $params)));
@@ -111,8 +111,18 @@ abstract class Model
         }
     }
 
-    protected function delete()
+    protected function delete(string $entity, string $terms, string $params): ?int
     {
+        try {
+            $query = "DELETE FROM {$entity} WHERE {$terms}";
+            $stmt = Connect::getInstance()->prepare($query);
+            parse_str($params, $params);
+            $stmt->execute($params);
+            return ($stmt->rowCount() ?? 1);
+        } catch (\PDOException $exception) {
+            $this->fail = $exception;
+            return null;
+        }
     }
 
     protected function read(string $select, string $params = null): ?\PDOStatement

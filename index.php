@@ -1,12 +1,12 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("a05.11-save-update");
+fullStackPHPClassName("a05.12-delete-data-with-pdo");
 //echo '<pre>';
 /*
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
  */
 
-fullStackPHPClassSession("save update", __LINE__);
+fullStackPHPClassSession("destroy", __LINE__);
 
 //IMPORTAÇÃO DA CLASS MODEL
 use Source\Loading\Classes;
@@ -20,41 +20,15 @@ require_once("vendor/autoload.php");
 //Instância de um objeto
 
 echo '<pre>';
-
-$retornoApiCorreio = "address='Rua XPTO 1'&CEP=1234";
-$dadosEnderecoUsuario = [
-        "telefone" => 47123456789,
-        "email" => "email@email.com",
-];
-
-parse_str($retornoApiCorreio, $result);
-$dadosEnderecoUsuario = array_merge($result, $dadosEnderecoUsuario);
+$model = new UserModel();
+$user = $model->load("id=5");
+$user->destroy();
 
 var_dump(
-    $dadosEnderecoUsuario
+    $user
 );
 
-//INSERT INTO NOME_TABELA (address,CEP,telefone,email) VALUES (:address, :CEP, :telefone, :email)
-
-$colunas = implode(",", array_keys($dadosEnderecoUsuario));
-$values = ":" . implode(", :", array_keys($dadosEnderecoUsuario));
-var_dump(
-    $colunas,
-    $values
-);
-
-$templateInsert = "INSERT INTO NOME_TABELA ({$colunas}) VALUES ({$values}";
-$stmt = Connect::getInstance()->prepare($templateInsert);
-for ($i = 1; $i < 10; $i++ ) {
-    $stmt->execute($dadosEnderecoUsuario);
-}
-
-/*)";*/
-
-
-
-
-
+fullStackPHPClassSession("model destroy", __LINE__);
 
 echo '</pre>';
 ?>
