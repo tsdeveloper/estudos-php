@@ -1,34 +1,22 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("a05.12-delete-data-with-pdo");
+fullStackPHPClassName("a06.a02-config-php");
 //echo '<pre>';
 /*
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
  */
 
-fullStackPHPClassSession("destroy", __LINE__);
+fullStackPHPClassSession("RFI and DoS", __LINE__);
 
 //IMPORTAÇÃO DA CLASS MODEL
-use Source\Loading\Classes;
-use Source\Loading\Classes\UserModel;
-use Source\Loading\Classes\ProductModel;
-use Source\Loading\Classes\CarrinhoModel;
-use Source\Loading\Database\Connect;
+use Source\Models\User;
 
 //Obrigatorio
 require_once("vendor/autoload.php");
 //Instância de um objeto
 
 echo '<pre>';
-$model = new UserModel();
-$user = $model->load("id=5");
-$user->destroy();
 
-var_dump(
-    $user
-);
-
-fullStackPHPClassSession("model destroy", __LINE__);
 
 echo '</pre>';
 ?>
