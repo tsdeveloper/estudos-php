@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("a06.a02-config-php");
+fullStackPHPClassName("a06.a03-config-project-php");
 //echo '<pre>';
 /*
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
