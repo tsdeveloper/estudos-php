@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("a06.a02-config-php");
+fullStackPHPClassName("a06.a03-config-project-php");
 //echo '<pre>';
 /*
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
@@ -13,10 +13,13 @@ use Source\Models\User;
 
 //Obrigatorio
 require_once("vendor/autoload.php");
+require_once('Source/Support/Config.php');
 //Instância de um objeto
 
 echo '<pre>';
-
+var_dump(
+        get_defined_constants(true)['user']
+);
 
 echo '</pre>';
 ?>
