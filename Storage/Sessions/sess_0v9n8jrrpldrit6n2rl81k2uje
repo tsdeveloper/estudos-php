@@ -1,0 +1,1 @@
+User|i:1;perfil_user|a:3:{i:0;s:9:"developer";i:1;s:3:"DBA";i:2;s:8:"analytic";}perfil_admin|O:8:"stdClass":4:{s:7:"perfil1";s:9:"developer";s:7:"perfil2";s:3:"DBA";s:7:"perfil3";s:8:"analytic";s:7:"perfil4";s:5:"admin";}

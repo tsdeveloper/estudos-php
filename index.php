@@ -10,6 +10,7 @@ fullStackPHPClassSession("RFI and DoS", __LINE__);
 
 //IMPORTAÇÃO DA CLASS MODEL
 use Source\Models\User;
+use \Source\Core\Session;
 
 //Obrigatorio
 require_once("vendor/autoload.php");
@@ -17,10 +18,14 @@ require_once('Source/Support/Config.php');
 //Instância de um objeto
 
 echo '<pre>';
-var_dump(
-        get_defined_constants(true)['user']
-);
+$session = new Session();
 
+$session->set('perfil_admin', [ "perfil1" => "developer", "perfil2" =>"DBA", "perfil3" =>"analytic", "perfil4" => "admin"]);
+
+
+var_dump(
+     $_SESSION['perfil_admin']
+);
 echo '</pre>';
 ?>
 
