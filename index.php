@@ -20,12 +20,14 @@ require_once('Source/Support/Config.php');
 echo '<pre>';
 $session = new Session();
 
-$session->set('perfil_admin', [ "perfil1" => "developer", "perfil2" =>"DBA", "perfil3" =>"analytic", "perfil4" => "admin"]);
-
+$session->set('perfil_user', "admin");
+$session->set('perfil_user', "client");
 
 var_dump(
-     $_SESSION['perfil_admin']
+        $_SESSION,
+    $session->regenerate()
 );
+
 echo '</pre>';
 ?>
 

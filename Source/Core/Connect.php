@@ -6,11 +6,6 @@ use PDOException;
 
 class Connect {
 
-    private const HOST = 'localhost';
-    private const USER = 'root';
-    private const DBNAME = 'fullstackphp';
-    private const PASSWD = 'root123';
-
     private const OPTIONS = [
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8', //Configura para aceitar carateres especiais
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Exibe erros de exception
@@ -38,9 +33,9 @@ class Connect {
         if (empty(self::$instance)) {
             try {
                 self::$instance = new PDO(
-                    "mysql:host=" . self::HOST . ";dbname=" . self::DBNAME,
-                    self::USER,
-                    self::PASSWD,
+                    "mysql:host=" . CONFIG_DB_HOST . ";dbname=" . CONFIG_DB_NAME,
+                    CONFIG_DB_USER,
+                    CONFIG_DB_PASS,
                     self::OPTIONS
                 );
 
