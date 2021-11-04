@@ -18,14 +18,11 @@ require_once('Source/Support/Config.php');
 //Instância de um objeto
 
 echo '<pre>';
-$session = new Session();
-
-$session->set('perfil_user', "admin");
-$session->set('perfil_user', "client");
+$float = 123456789012345678901234567890;
+$convertPass = floatval( $float)  . PHP_EOL;
 
 var_dump(
-        $_SESSION,
-    $session->regenerate()
+    $convertPass
 );
 
 echo '</pre>';
