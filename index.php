@@ -1,14 +1,16 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("a06.a03-config-project-php");
+fullStackPHPClassName("a06.a05-config-project-php");
 //echo '<pre>';
 /*
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
  */
 
-fullStackPHPClassSession("RFI and DoS", __LINE__);
+
 
 //IMPORTAÇÃO DA CLASS MODEL
+use Source\Core\Connect;
+use Source\Core\Message;
 use Source\Models\User;
 use \Source\Core\Session;
 
@@ -18,13 +20,12 @@ require_once('Source/Support/Config.php');
 //Instância de um objeto
 
 echo '<pre>';
-$float = 123456789012345678901234567890;
-$convertPass = floatval( $float)  . PHP_EOL;
+fullStackPHPClassSession("message class", __LINE__);
+$message = new Message();
 
 var_dump(
-    $convertPass
+        $message, get_class_methods($message)
 );
-
 echo '</pre>';
 ?>
 

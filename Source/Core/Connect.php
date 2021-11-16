@@ -15,11 +15,16 @@ class Connect {
 
     private static $instance;
 
+    /**
+     * Connect constructor.
+     */
     final private function __construct()
     {
     }
 
-
+    /**
+     * Connect clone.
+     */
     final private function __clone()
     {
         // TODO: Implement __clone() method.
