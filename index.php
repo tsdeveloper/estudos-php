@@ -41,7 +41,7 @@ echo $message->warning("Imprimindo mensagem render");
 echo $message->error("É uma mensagem render");
 
 fullStackPHPClassSession("flash message", __LINE__);
-$message->info("Mensagem de login 1")->flash('teste');
+$message->info("Mensagem de login 1")->flash();
 var_dump(
     CONFIG_MESSAGE_CHECKOUT
 );
