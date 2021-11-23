@@ -85,7 +85,7 @@ p {
     border-color: var(--blue);
 }
 
-.trigger.sucess,
+.trigger.success,
 .trigger.accept {
     color: var(--green);
     border-color: var(--green);

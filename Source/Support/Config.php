@@ -20,7 +20,9 @@ define("CONFIG_SES_PATH",  __DIR__ . "/../../Storage/Sessions");
 
 /*MESSAGE*/
 define("CONFIG_MESSAGE_CLASS", "trigger");
-define("CONFIG_MESSAGE_CLASS_INFO", "info");
-define("CONFIG_MESSAGE_CLASS_SUCCESS", "success");
-define("CONFIG_MESSAGE_CLASS_WARNING", "warning");
-define("CONFIG_MESSAGE_CLASS_ERROR", "error");
+define("CONFIG_MESSAGE_INFO", "info");
+define("CONFIG_MESSAGE_SUCCESS", "success");
+define("CONFIG_MESSAGE_WARNING", "warning");
+define("CONFIG_MESSAGE_ERROR", "error");
+define("CONFIG_MESSAGE_LOGIN", "Login realizado com sucesso!");
+define("CONFIG_MESSAGE_CHECKOUT", "Item adicionado com sucesso!");
