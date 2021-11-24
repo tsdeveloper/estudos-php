@@ -41,10 +41,25 @@ echo $message->warning("Imprimindo mensagem render");
 echo $message->error("É uma mensagem render");
 
 fullStackPHPClassSession("flash message", __LINE__);
-$message->info("Mensagem de login 1")->flash();
+$session = new Session();
+$session->destroy();
+$message_info = new Message();
+$message_info->info("Mensagem de login 1")->flash("flash1");
+
+$message_info->info("Mensagem de login 3")->flash("flash3");
 var_dump(
-    CONFIG_MESSAGE_CHECKOUT
+    $session->all()
 );
+if ($flash = $session->flash()) {
+    echo $flash;
+    var_dump(
+        $session->all(),
+        $flash->getText(),
+        $flash->getType()
+    );
+}
+
+
 
 echo '</pre>';
 ?>

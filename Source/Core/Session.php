@@ -25,8 +25,9 @@ class Session
      * @param $name
      * @return mixed|null
      */
-    public function __get($name) {
-        if (!empty($_SESSION[$name])){
+    public function __get($name)
+    {
+        if (!empty($_SESSION[$name])) {
             return $_SESSION[$name];
         }
         return null;
@@ -36,15 +37,17 @@ class Session
      * @param $name
      * @return bool
      */
-    public function __isset($name): bool {
-       $this->has($name);
+    public function __isset($name): bool
+    {
+        $this->has($name);
     }
 
 
     /**
      * @return object|null
      */
-    public function all (): ?object {
+    public function all(): ?object
+    {
         return (object)$_SESSION;
     }
 
@@ -53,7 +56,8 @@ class Session
      * @param $value
      * @return $this
      */
-    public function set(string $key, $value): Session {
+    public function set(string $key, $value): Session
+    {
         $_SESSION[$key] = (is_array($value) ? (object)$value : $value);
         return $this;
     }
@@ -62,7 +66,8 @@ class Session
      * @param string $key
      * @return $this
      */
-    public function unset(string $key): Session {
+    public function unset(string $key): Session
+    {
         unset($_SESSION[$key]);
         return $this;
     }
@@ -71,14 +76,16 @@ class Session
      * @param string $key
      * @return bool
      */
-    public function has(string $key): bool {
+    public function has(string $key): bool
+    {
         return isset($_SESSION[$key]);
     }
 
     /**
      * @return $this
      */
-    public function regenerate(): Session {
+    public function regenerate(): Session
+    {
         session_regenerate_id(true);
         return $this;
     }
@@ -86,8 +93,20 @@ class Session
     /**
      * @return $this
      */
-    public function destroy(): Session {
+    public function destroy(): Session
+    {
         session_destroy();
         return $this;
+    }
+
+    public function flash(): ?Message
+    {
+        if ($this->has("flash")) {
+            $flash = $this->flash;
+            $this->unset('flash');
+            return $flash;
+        }
+
+        return null;
     }
 }

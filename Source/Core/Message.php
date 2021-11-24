@@ -72,9 +72,9 @@ class Message
         ]);
     }
 
-    public function flash(): void
+    public function flash(string $key): void
     {
-        (new Session())->set('flash', $this);
+        (new Session())->set($key, $this);
 
     }
 
