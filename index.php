@@ -15,49 +15,15 @@ use \Source\Core\Session;
 //Obrigatorio
 require_once("vendor/autoload.php");
 require_once('Source/Support/Config.php');
+require_once('Source/Support/Helper.php');
 //Instância de um objeto
 
 echo '<pre>';
 fullStackPHPClassSession("message class", __LINE__);
-$message = new Message();
-
+$test = "curso de php turma 2019";
 var_dump(
-        $message, get_class_methods($message)
+    mb_strtoupper($test)
 );
-
-fullStackPHPClassSession("message types", __LINE__);
-
-$error = $message->success("Imprimindo mensagem pela class");
-var_dump(
-        [
-            $message->getText(),
-            $message->getType(),
-        ]
-);
-
-echo $message->success("Imprimindo mensagem render");
-echo $message->info("Imprimindo mensagem render");
-echo $message->warning("Imprimindo mensagem render");
-echo $message->error("É uma mensagem render");
-
-fullStackPHPClassSession("flash message", __LINE__);
-$session = new Session();
-$session->destroy();
-$message_info = new Message();
-$message_info->info("Mensagem de login 1")->flash("flash1");
-
-$message_info->info("Mensagem de login 3")->flash("flash3");
-var_dump(
-    $session->all()
-);
-if ($flash = $session->flash()) {
-    echo $flash;
-    var_dump(
-        $session->all(),
-        $flash->getText(),
-        $flash->getType()
-    );
-}
 
 
 

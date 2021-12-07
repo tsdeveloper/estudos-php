@@ -101,7 +101,7 @@ class Session
 
     public function flash(): ?Message
     {
-        if ($this->has("flash")) {
+        if ($this->has()) {
             $flash = $this->flash;
             $this->unset('flash');
             return $flash;
