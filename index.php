@@ -25,6 +25,7 @@ $string = "   Item em Pré-venda. Estoque disponível para entrega à partir de 
 $message = new Message();
 
 echo $message->info(str_slug($string));
+echo $message->info(str_study_case($string));
 
 
 

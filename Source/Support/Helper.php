@@ -22,3 +22,19 @@ function str_slug(string $string): string
 
     return  $slug;
 }
+
+function str_study_case(string $string): string
+{
+    $string = str_slug($string);
+    $studlyCase = str_replace(" ", "",
+        mb_convert_case(str_replace("-", " ", $string), MB_CASE_TITLE)
+    );
+
+    return $studlyCase;
+}
+
+function str_camel_case(string $string): string
+{
+    return lcfirst(str_study_case($string));
+}
+
