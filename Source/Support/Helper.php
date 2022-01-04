@@ -38,3 +38,31 @@ function str_camel_case(string $string): string
     return lcfirst(str_study_case($string));
 }
 
+function str_title(string $string): string
+{
+    return str_convert_filter_var_case($string, FILTER_SANITIZE_SPECIAL_CHARS, MB_CASE_TITLE);
+}
+
+function str_convert_filter_var_case(string $string, int $modeFilter, int $modeConvertCase) {
+    return mb_convert_case(filter_var($string, $modeFilter), $modeConvertCase);
+}
+
+function str_limit_words(string $string, int $limit, string $pointer = "..."): string
+{
+    $string = trim(filter_var($string, FILTER_SANITIZE_SPECIAL_CHARS));
+    $arrWords = explode(" ", $string);
+    $numWords = count($arrWords);
+
+
+    if ($numWords < $limit)
+        return $string;
+
+    $words = implode(" ", array_splice($arrWords, 0, $limit));
+
+    return  "{$words}{$pointer}";
+}
+
+function str_limit_words(string $string, int $limit, string $pointer = "..."): string
+
+
+
