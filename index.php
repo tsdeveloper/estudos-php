@@ -20,7 +20,7 @@ require_once('Source/Support/Helper.php');
 
 echo '<pre>';
 fullStackPHPClassSession("message class", __LINE__);
-$string = "Item em Pré-venda. Estoque disponível para entrega à partir de 25/12/2021";
+$string = "Feliz Natal";
 //$string = "Essa é uma string, nela temos um under_score e um guarda-chuva!";
 $message = new Message();
 
@@ -30,7 +30,9 @@ echo $message->info(str_camel_case($string));
 echo $message->info(str_title($string));
 echo $message->info(str_limit_words($string, 9));
 
+$test = "O cpf do fulano seria 102938348347";
 
+var_dump(mb_strrpos($test,'8'));
 
 echo '</pre>';
 ?>
