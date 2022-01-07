@@ -18,6 +18,12 @@ define("CONFIG_DATE_APP", "Y-m-d H:i:s");
 /*SESSIONS*/
 define("CONFIG_SES_PATH",  __DIR__ . "/../../Storage/Sessions");
 
+/*PASSWORD*/
+define("CONFIG_REGISTER_LOGIN_MIN_LEN", 3);
+define("CONFIG_REGISTER_LOGIN_MAX_LEN", 10);
+define("CONFIG_PASSWD_MIN_LEN", 8);
+define("CONFIG_PASSWD_MAX_LEN", 40);
+
 /*MESSAGE*/
 define("CONFIG_MESSAGE_CLASS", "trigger");
 define("CONFIG_MESSAGE_INFO", "info");

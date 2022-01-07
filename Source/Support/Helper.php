@@ -1,5 +1,31 @@
 <?php
 /**
+ * ###################
+ * ###  VALIDATE  ###
+ * ###################
+ */
+
+
+/**
+ * @param string $email
+ * @return bool
+ */
+function is_email(string $email): bool
+{
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
+/**
+ * @param string $password
+ * @return bool
+ */
+function is_passwd(string $password): bool
+{
+    return (mb_strlen($password) >= CONFIG_PASSWD_MIN_LEN &&
+                            mb_strlen($password) <= CONFIG_PASSWD_MAX_LEN ? true : false);
+}
+//AND
+/**
  * ################
  * ###  STRING  ###
  * ################
@@ -71,7 +97,6 @@ function str_limit_char(string $string, int $limit, string $pointer = "..."): st
     $chars = mb_substr($string,0,mb_strrpos(mb_substr($string, 0, $limit), " "));
 
     return "{$chars}{$pointer}";
-
 }
 
 

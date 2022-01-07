@@ -19,20 +19,16 @@ require_once('Source/Support/Helper.php');
 //Instância de um objeto
 
 echo '<pre>';
-fullStackPHPClassSession("message class", __LINE__);
+fullStackPHPClassSession("validate", __LINE__);
 $string = "Feliz Natal";
 //$string = "Essa é uma string, nela temos um under_score e um guarda-chuva!";
 $message = new Message();
+$email = "turma@234@ellen.com";
 
-echo $message->info(str_slug($string));
-echo $message->info(str_study_case($string));
-echo $message->info(str_camel_case($string));
-echo $message->info(str_title($string));
-echo $message->info(str_limit_words($string, 9));
-
-$test = "O cpf do fulano seria 102938348347";
-
-var_dump(mb_strrpos($test,'8'));
+if (!is_email($email))
+    echo $message->error("Email errado!");
+else
+    echo $message->success("Email está ok!");
 
 echo '</pre>';
 ?>
