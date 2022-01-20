@@ -22,9 +22,10 @@ function is_email(string $email): bool
 function is_passwd(string $password): bool
 {
     return (mb_strlen($password) >= CONFIG_PASSWD_MIN_LEN &&
-                            mb_strlen($password) <= CONFIG_PASSWD_MAX_LEN ? true : false);
+                            mb_strlen($password) <=
+                            CONFIG_PASSWD_MAX_LEN ? true : false);
 }
-//AND
+
 /**
  * ################
  * ###  STRING  ###
@@ -97,6 +98,27 @@ function str_limit_char(string $string, int $limit, string $pointer = "..."): st
     $chars = mb_substr($string,0,mb_strrpos(mb_substr($string, 0, $limit), " "));
 
     return "{$chars}{$pointer}";
+}
+/**
+ * ################
+ * ###  STRING  ###
+ * ################
+ */
+
+
+function url(string $path): string
+{
+    return CONFIG_URL_BASE . "/" . ($path[0] == "/" ?
+            mb_substr($path, 1) : $path);
+}
+function redirect(string $url): void
+{
+    //Content-type:application/word
+    header("Content-type:application/pdf");
+    header("Content-type:application/excel");
+    header("Content-type:application/word");
+//    header("Location: https://www.php.net/manual/pt_BR/function.header.php");
+    exit;
 }
 
 

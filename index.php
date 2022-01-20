@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("a06.a05-config-project-php");
+fullStackPHPClassName("a06.a08-manipulation-string-php");
 //echo '<pre>';
 /*
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
@@ -29,6 +29,16 @@ if (!is_email($email))
     echo $message->error("Email errado!");
 else
     echo $message->success("Email está ok!");
+
+$pwd = "test$%&¨@!()-+";
+if (!is_passwd($pwd))
+    echo $message->error("password is failed!");
+else
+    echo $message->success("password is ok!");
+
+fullStackPHPClassSession("navigation", __LINE__);
+redirect("test");
+
 
 echo '</pre>';
 ?>
