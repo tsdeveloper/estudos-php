@@ -113,11 +113,10 @@ function url(string $path): string
 }
 function redirect(string $url): void
 {
-    //Content-type:application/word
-    header("Content-type:application/pdf");
-    header("Content-type:application/excel");
-    header("Content-type:application/word");
-//    header("Location: https://www.php.net/manual/pt_BR/function.header.php");
+    //    header("Location: https://www.php.net/manual/pt_BR/function.header.php");
+    header("HTTP/1.1 302 Redirect");
+
+
     exit;
 }
 
