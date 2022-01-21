@@ -22,7 +22,9 @@ echo '<pre>';
 fullStackPHPClassSession("validate", __LINE__);
 $string = "Feliz Natal";
 //$string = "Essa é uma string, nela temos um under_score e um guarda-chuva!";
-$message = new Message();
+$message = message();
+$user = user();
+$session = session();
 $email = "turma@234@ellen.com";
 
 if (!is_email($email))
@@ -37,8 +39,10 @@ else
     echo $message->success("password is ok!");
 
 fullStackPHPClassSession("navigation", __LINE__);
-redirect("test");
+if (empty($_GET))
+redirect("?f=true");
 
+fullStackPHPClassSession("triggers", __LINE__);
 
 echo '</pre>';
 ?>

@@ -5,6 +5,11 @@
  * ###################
  */
 
+use Source\Core\Connect;
+use Source\Core\Message;
+use Source\Core\Session;
+use Source\Models\User;
+
 
 /**
  * @param string $email
@@ -99,25 +104,85 @@ function str_limit_char(string $string, int $limit, string $pointer = "..."): st
 
     return "{$chars}{$pointer}";
 }
+
 /**
  * ################
  * ###  STRING  ###
  * ################
  */
 
-
+/**
+ * @param string $path
+ * @return string
+ */
 function url(string $path): string
 {
     return CONFIG_URL_BASE . "/" . ($path[0] == "/" ?
             mb_substr($path, 1) : $path);
 }
+
+/**
+ * ################
+ * ###  STRING  ###
+ * ################
+ */
+
+/**
+ * @param string $url
+ */
 function redirect(string $url): void
 {
-    //    header("Location: https://www.php.net/manual/pt_BR/function.header.php");
+    //header("Location: https://www.php.net/manual/pt_BR/function.header.php");
     header("HTTP/1.1 302 Redirect");
+    if (filter_var($url, FILTER_VALIDATE_URL)) {
+        header("Location: {$url}");
+        exit;
+    }
 
-
+    $location = url($url);
+    header("Location: {$location}");
     exit;
+}
+
+/**
+ * ################
+ * ###  CORE  ###
+ * ################
+ */
+
+/**
+ * @return PDO
+ */
+
+function db(): PDO {
+    return Connect::getInstance();
+}
+
+/**
+ * @return Message
+ */
+function message(): Message {
+    return new Message();
+}
+
+/**
+ * @return Session
+ */
+function session(): Session {
+    return new Session();
+}
+
+/**
+ * ################
+ * ###  MODEL  ###
+ * ################
+ */
+
+/**
+ * @return User
+ */
+function user(): User {
+    return new User();
 }
 
 
