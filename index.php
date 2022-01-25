@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("a06.a08-manipulation-string-php");
+fullStackPHPClassName("a06.a09-security");
 //echo '<pre>';
 /*
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
@@ -39,12 +39,20 @@ else
     echo $message->success("password is ok!");
 
 fullStackPHPClassSession("navigation", __LINE__);
-if (empty($_GET))
-redirect("?f=true");
+/*if (empty($_GET))
+redirect("?f=true");*/
 
 fullStackPHPClassSession("triggers", __LINE__);
 var_dump(
         user()->load("id=1")
+);
+
+echo message()->error("this is error");
+echo message()->info("this is info");
+
+session()->set("user",  user()->load("id=2"));
+var_dump(
+    session()->all()
 );
 
 
