@@ -43,6 +43,10 @@ if (empty($_GET))
 redirect("?f=true");
 
 fullStackPHPClassSession("triggers", __LINE__);
+var_dump(
+        user()->load("id=1")
+);
+
 
 echo '</pre>';
 ?>
