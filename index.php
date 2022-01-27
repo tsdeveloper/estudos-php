@@ -19,42 +19,24 @@ require_once('Source/Support/Helper.php');
 //Instância de um objeto
 
 echo '<pre>';
-fullStackPHPClassSession("validate", __LINE__);
-$string = "Feliz Natal";
-//$string = "Essa é uma string, nela temos um under_score e um guarda-chuva!";
-$message = message();
-$user = user();
-$session = session();
-$email = "turma@234@ellen.com";
+fullStackPHPClassSession("password hashing", __LINE__);
+$pass_html = '12345';
+$pass_bd = password_hash(12345, PASSWORD_DEFAULT);
 
-if (!is_email($email))
-    echo $message->error("Email errado!");
-else
-    echo $message->success("Email está ok!");
-
-$pwd = "test$%&¨@!()-+";
-if (!is_passwd($pwd))
-    echo $message->error("password is failed!");
-else
-    echo $message->success("password is ok!");
-
-fullStackPHPClassSession("navigation", __LINE__);
-/*if (empty($_GET))
-redirect("?f=true");*/
-
-fullStackPHPClassSession("triggers", __LINE__);
 var_dump(
-        user()->load("id=1")
+    $pass_html,
+    $pass_bd
 );
 
-echo message()->error("this is error");
-echo message()->info("this is info");
-
-session()->set("user",  user()->load("id=2"));
 var_dump(
-    session()->all()
+        password_get_info($pass_html),
+    password_needs_rehash($pass_html, PASSWORD_DEFAULT, ["cost" => 10]),
+    password_verify($pass_html, $pass_bd)
 );
 
+fullStackPHPClassSession("password saving", __LINE__);
+fullStackPHPClassSession("password verify", __LINE__);
+fullStackPHPClassSession("password handler", __LINE__);
 
 echo '</pre>';
 ?>
