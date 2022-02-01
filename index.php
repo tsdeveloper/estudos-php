@@ -20,22 +20,42 @@ require_once('Source/Support/Helper.php');
 
 echo '<pre>';
 fullStackPHPClassSession("password hashing", __LINE__);
-$pass_html = '12345';
-$pass_bd = password_hash(12345, PASSWORD_DEFAULT);
+$pass_fake = 12345;
+$pass = password_hash($pass_fake, PASSWORD_DEFAULT);
 
 var_dump(
-    $pass_html,
-    $pass_bd
+    $pass,
+    $pass
 );
 
 var_dump(
-        password_get_info($pass_html),
-    password_needs_rehash($pass_html, PASSWORD_DEFAULT, ["cost" => 10]),
-    password_verify($pass_html, $pass_bd)
+        password_get_info($pass),
+    password_needs_rehash($pass, PASSWORD_DEFAULT, ["cost" => 10]),
+    password_verify($pass_fake, $pass)
+
 );
 
 fullStackPHPClassSession("password saving", __LINE__);
+
+$user = user()->load('id=1');
+$user->password = $pass;
+$user->save();
+
+
+var_dump($user);
+
 fullStackPHPClassSession("password verify", __LINE__);
+$pass_fake = 1234556;
+$login = user()->find("robson1@email.com.br");
+var_dump($login);
+//AND= & OR = |
+if (!$login | !password_verify($pass_fake, $user->password)) {
+    echo message()->info("E-mail informado não confere");
+}else
+{
+    echo message()->success("Login realizado com sucesso");
+}
+
 fullStackPHPClassSession("password handler", __LINE__);
 
 echo '</pre>';
