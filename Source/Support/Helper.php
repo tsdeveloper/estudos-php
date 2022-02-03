@@ -31,6 +31,21 @@ function is_passwd(string $password): bool
                             CONFIG_PASSWD_MAX_LEN ? true : false);
 }
 
+function passwd(string $password): string
+{
+    return password_hash($password,CONFIG_PASSWD_ALGO,CONFIG_PASSWD_OPTION);
+}
+
+function passwd_verify(string $password, string $hash): bool
+{
+    return password_verify($password, $hash);
+}
+
+function passwd_rehash(string $hash): bool
+{
+    return password_needs_rehash($hash,CONFIG_PASSWD_ALGO,CONFIG_PASSWD_OPTION);
+}
+
 /**
  * ################
  * ###  STRING  ###

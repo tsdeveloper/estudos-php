@@ -17,11 +17,11 @@ require_once("vendor/autoload.php");
 require_once('Source/Support/Config.php');
 require_once('Source/Support/Helper.php');
 //Instância de um objeto
-
+session();
 echo '<pre>';
 fullStackPHPClassSession("password hashing", __LINE__);
 $pass_fake = 12345;
-$pass = password_hash($pass_fake, PASSWORD_DEFAULT);
+$pass = passwd($pass_fake);
 
 var_dump(
     $pass,
@@ -30,8 +30,8 @@ var_dump(
 
 var_dump(
         password_get_info($pass),
-    password_needs_rehash($pass, PASSWORD_DEFAULT, ["cost" => 10]),
-    password_verify($pass_fake, $pass)
+    passwd_rehash($pass, PASSWORD_DEFAULT, ["cost" => 10]),
+    passwd_verify($pass_fake, $pass)
 
 );
 
@@ -45,15 +45,26 @@ $user->save();
 var_dump($user);
 
 fullStackPHPClassSession("password verify", __LINE__);
-$pass_fake = 1234556;
+$pass_fake = 12345;
 $login = user()->find("robson1@email.com.br");
 var_dump($login);
-//AND= & OR = |
-if (!$login | !password_verify($pass_fake, $user->password)) {
-    echo message()->info("E-mail informado não confere");
+
+if (!$login) {
+    echo message()->error("E-mail informado não confere");
+
+}elseif(!passwd_verify($pass_fake, $user->password))
+{
+    echo message()->error("Login/Senha não confere");
 }else
 {
-    echo message()->success("Login realizado com sucesso");
+    $login->password = passwd($pass_fake);
+    $login->save();
+
+    session()->set('login', $login->data());
+
+    echo message()->success("Welcome come back {$login->first_name}");
+    var_dump(session()->all());
+
 }
 
 fullStackPHPClassSession("password handler", __LINE__);
