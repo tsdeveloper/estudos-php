@@ -1,6 +1,5 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("a06.a09-security");
 fullStackPHPClassName("a06.a10-xxs csrf security");
 //echo '<pre>';
 /*
@@ -20,58 +19,13 @@ require_once('Source/Support/Helper.php');
 //Instância de um objeto
 session();
 echo '<pre>';
-fullStackPHPClassSession("password hashing", __LINE__);
-$pass_fake = 12345;
-$pass = passwd($pass_fake);
 
-var_dump(
-    $pass,
-    $pass
-);
+fullStackPHPClassSession("csrf", __LINE__);
+if($_REQUEST && !csrf_verify($_REQUEST))
+    var_dump("CSRF Bloqued");
+else
+    var_dump($_REQUEST);
 
-var_dump(
-    password_get_info($pass),
-    passwd_rehash($pass, PASSWORD_DEFAULT, ["cost" => 10]),
-    passwd_verify($pass_fake, $pass)
-
-);
-
-fullStackPHPClassSession("password saving", __LINE__);
-
-$user = user()->load('id=1');
-$user->password = $pass;
-$user->save();
-
-
-var_dump($user);
-
-fullStackPHPClassSession("password verify", __LINE__);
-$pass_fake = 12345;
-$login = user()->find("robson1@email.com.br");
-var_dump($login);
-
-if (!$login) {
-    echo message()->error("E-mail informado não confere");
-
-}elseif(!passwd_verify($pass_fake, $user->password))
-{
-    echo message()->error("Login/Senha não confere");
-}else
-{
-    $login->password = passwd($pass_fake);
-    $login->save();
-    fullStackPHPClassSession("xxs", __LINE__);
-
-    session()->set('login', $login->data());
-    fullStackPHPClassSession("csrf", __LINE__);
-
-    echo message()->success("Welcome come back {$login->first_name}");
-    var_dump(session()->all());
-
-}
-
-fullStackPHPClassSession("password handler", __LINE__);
-fullStackPHPClassSession("form", __LINE__);
 
 echo '</pre>';
 ?>
@@ -88,8 +42,11 @@ echo '</pre>';
 <body>
 
 <form action="index.php" method="get">
-    <p>Your name: <input type="text" name="name" /></p>
-    <p>Your age: <input type="text" name="age" /></p>
+    <?= csrf_input(); ?>
+    <p>First name: <input type="text" name="first_name" /></p>
+    <p>Last name: <input type="text" name="last_name" /></p>
+    <p>Email: <input type="email" name="email" /></p>
+    <p>Password: <input type="password" name="password" /></p>
     <p><input type="submit" /></p>
 </form>
 
