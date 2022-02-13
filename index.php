@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
+fullStackPHPClassName("a06.a09-security");
 fullStackPHPClassName("a06.a10-xxs csrf security");
 //echo '<pre>';
 /*
@@ -19,10 +20,57 @@ require_once('Source/Support/Helper.php');
 //Instância de um objeto
 session();
 echo '<pre>';
-fullStackPHPClassSession("xxs", __LINE__);
+fullStackPHPClassSession("password hashing", __LINE__);
+$pass_fake = 12345;
+$pass = passwd($pass_fake);
 
-fullStackPHPClassSession("csrf", __LINE__);
+var_dump(
+    $pass,
+    $pass
+);
 
+var_dump(
+    password_get_info($pass),
+    passwd_rehash($pass, PASSWORD_DEFAULT, ["cost" => 10]),
+    passwd_verify($pass_fake, $pass)
+
+);
+
+fullStackPHPClassSession("password saving", __LINE__);
+
+$user = user()->load('id=1');
+$user->password = $pass;
+$user->save();
+
+
+var_dump($user);
+
+fullStackPHPClassSession("password verify", __LINE__);
+$pass_fake = 12345;
+$login = user()->find("robson1@email.com.br");
+var_dump($login);
+
+if (!$login) {
+    echo message()->error("E-mail informado não confere");
+
+}elseif(!passwd_verify($pass_fake, $user->password))
+{
+    echo message()->error("Login/Senha não confere");
+}else
+{
+    $login->password = passwd($pass_fake);
+    $login->save();
+    fullStackPHPClassSession("xxs", __LINE__);
+
+    session()->set('login', $login->data());
+    fullStackPHPClassSession("csrf", __LINE__);
+
+    echo message()->success("Welcome come back {$login->first_name}");
+    var_dump(session()->all());
+
+}
+
+fullStackPHPClassSession("password handler", __LINE__);
 fullStackPHPClassSession("form", __LINE__);
 
 echo '</pre>';
@@ -39,35 +87,35 @@ echo '</pre>';
 
 <body>
 
-    <form action="index.php" method="get">
-        <p>Your name: <input type="text" name="name" /></p>
-        <p>Your age: <input type="text" name="age" /></p>
-        <p><input type="submit" /></p>
-    </form>
+<form action="index.php" method="get">
+    <p>Your name: <input type="text" name="name" /></p>
+    <p>Your age: <input type="text" name="age" /></p>
+    <p><input type="submit" /></p>
+</form>
 
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./node_modules/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script src="./node_modules/sweetalert/dist/sweetalert.min.js"></script>
+<script>
 
-        $(function () {
-          /*  swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this imaginary file!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("Poof! Your imaginary file has been deleted!", {
-                            icon: "success",
-                        });
-                    } else {
-                        swal("Your imaginary file is safe!");
-                    }
-                });*/
-        })
-    </script>
+    $(function () {
+        /*  swal({
+                  title: "Are you sure?",
+                  text: "Once deleted, you will not be able to recover this imaginary file!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+              })
+              .then((willDelete) => {
+                  if (willDelete) {
+                      swal("Poof! Your imaginary file has been deleted!", {
+                          icon: "success",
+                      });
+                  } else {
+                      swal("Your imaginary file is safe!");
+                  }
+              });*/
+    })
+</script>
 </body>
 
 </html>

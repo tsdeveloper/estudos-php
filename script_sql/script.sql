@@ -1,3 +1,5 @@
+# create DATABASE  fullstackphp;
+
 create table users
 (
     id         int(11) unsigned auto_increment

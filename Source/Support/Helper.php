@@ -187,6 +187,16 @@ function session(): Session {
     return new Session();
 }
 
+function csrf_input(): string {
+    session()->csrf();
+    return "<input type='text'  name='csrf' value='" . (session()->csrf_token ?? ""). "'>";
+}
+
+function csrf_verify($request): bool {
+}
+
+
+
 /**
  * ################
  * ###  MODEL  ###
