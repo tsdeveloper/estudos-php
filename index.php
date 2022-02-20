@@ -20,11 +20,16 @@ require_once('Source/Support/Helper.php');
 session();
 echo '<pre>';
 
-fullStackPHPClassSession("csrf", __LINE__);
-if($_REQUEST && !csrf_verify($_REQUEST))
-    var_dump("CSRF Bloqued");
-else
-    var_dump($_REQUEST);
+fullStackPHPClassSession("find", __LINE__);
+$user = user()->findById(5);
+var_dump(
+        $user
+);
+
+fullStackPHPClassSession("find by id", __LINE__);
+fullStackPHPClassSession("all", __LINE__);
+fullStackPHPClassSession("save created", __LINE__);
+fullStackPHPClassSession("save updated", __LINE__);
 
 
 echo '</pre>';

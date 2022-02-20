@@ -7,7 +7,19 @@ use Source\Core\Model;
 class User extends Model
 {
     /** @var array $safe no update or create */
-    protected static $safe = ['id', 'created_at', 'updated_at'];
+    protected static $safe = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
+    /**
+     * @var array $required table fields
+     */
+    protected static $required = [
+        'first_name',
+        'last_name', 'email',
+        'password'
+    ];
 
     /** @var string $entity database table */
     protected static $entity = 'users';
@@ -15,17 +27,34 @@ class User extends Model
     /**
      * @return string
      */
-    public  function bootstrap($first_name, $last_name, $email, $document): ?User
+    public  function bootstrap(string $first_name, string $last_name,
+                               string $email, string $password,
+                               string $document = null): ?User
     {
         $this->first_name = $first_name;
         $this->last_name = $last_name;
         $this->email = $email;
+        $this->password = $password;
         $this->document = $document;
 
         return $this;
     }
 
-    public function  load(string $params,  string $columns = "*", string $operadorWhere = " AND " ): ?User {
+    public function  findById(int $id, string $columns = "*"): ?User
+    {
+        if (!$this->required()){
+            return null;
+        }
+        return $this->find("id={$id}",$columns);
+    }
+
+    public function findByEmail($email, string $columns = "*"): ?User
+    {
+        return $this->find("id={$email}",$columns);
+    }
+
+    public function  find(string $params,  string $columns = "*",
+                          string $operadorWhere = " AND " ): ?User {
 
         parse_str($params, $strOptionWhere);
 
@@ -47,21 +76,18 @@ class User extends Model
           return  $load->fetchObject(__CLASS__);
     }
 
-    public function find($email, string $columns = "*"): ?User
-    {
-        $find = $this->read("SELECT {$columns} FROM " . self::$entity . " WHERE email = :email", "email={$email}");
-        if ($this->fail() || !$find->rowCount()) {
-            $this->message = "Usuário não encontrado para o email informado";
-            return null;
-        }
-        return $find->fetchObject(__CLASS__);
-    }
-
     public function save(): ?User {
 
         if (!$this->required()){
-                return null;
+                return $this->message->warning("Nome, sobrenome, email e senha");
             }
+        /**
+         * [
+            "last_name" => "Sobrenome Obrigatório",
+            "first_name" => "Nome é obrigatório"
+         ]
+         * #tagName é obrigatório;
+         */
 
        //Update User
         if (!empty($this->id)){
@@ -99,6 +125,7 @@ class User extends Model
         $this->data = $this->read("SELECT * FROM users WHERE id = :id", "id={$userId}")->fetch();
         return $this;
     }
+
     public function destroy() {
 
         if (!empty($this->email)){
@@ -115,24 +142,4 @@ class User extends Model
         return $this;
 
     }
-
-    private function required(): bool {
-        if (empty($this->first_name) || empty($this->last_name)
-            || empty($this->email)){
-            $this->message = "Nome, sobrenome e e-email são obrigatórios";
-            return false;
-        }
-
-        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)){
-            $this->message = "O e-email informado não parece válido";
-            return false;
-        }
-
-        return true;
-    }
-
-
-
-
-
 }

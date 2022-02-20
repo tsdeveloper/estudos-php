@@ -10,8 +10,13 @@ abstract class Model
     /** @var \PDOException */
     protected $fail;
 
-    /** @var string|null */
+    /** @var Message|null */
     protected $message;
+
+    public function __construct()
+    {
+        $this->message = new Message();
+    }
 
     /**
      * @param $name
@@ -56,8 +61,8 @@ abstract class Model
         return $this->fail;
     }
 
-    /** @return null|string */
-    public function message(): ?string
+    /** @return Message/null */
+    public function message(): ?Message
     {
         return $this->message;
     }
@@ -154,6 +159,10 @@ abstract class Model
         return $safe;
     }
 
+    /**
+     * @param array $data
+     * @return array|null
+     */
     protected function filter(array $data): ?array
     {
         $filter = [];
@@ -162,6 +171,23 @@ abstract class Model
         }
 
         return $filter;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function required(): bool
+    {
+        $valor1 = static::$is_admin;
+        $data = (array)$this->data();
+        foreach (static::$required as $field) {
+            if (empty($data[$field])) {
+                return false;
+            }
+            return true;
+        }
+
+
     }
 
 }
