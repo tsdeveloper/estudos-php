@@ -21,15 +21,32 @@ session();
 echo '<pre>';
 
 fullStackPHPClassSession("find", __LINE__);
-$user = user()->findById(5);
-$user->first_name = "Test1";
-$user = $user->save();
+$user = user()->find("id != :v", "v=6");
 var_dump(
         $user
 );
 
 fullStackPHPClassSession("find by id", __LINE__);
+$user = user()->findById(3);
+var_dump(
+    $user
+);
+
+fullStackPHPClassSession("find by email", __LINE__);
+$user = user()->findByEmail("joão32@email.com.br");
+var_dump(
+    $user
+);
+
+
+
 fullStackPHPClassSession("all", __LINE__);
+$user = user()->findById(3);
+var_dump(
+    $user
+);
+
+
 fullStackPHPClassSession("save created", __LINE__);
 fullStackPHPClassSession("save updated", __LINE__);
 

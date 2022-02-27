@@ -40,37 +40,39 @@ class User extends Model
         return $this;
     }
 
-    public function  findById(int $id, string $columns = "*"): ?User
+    /**
+     * @param string $terms
+     * @param string $params
+     * @param string $columns
+     * @return null|User
+     */
+    public function find(string $terms, string $params, string $columns = "*"): ?User
     {
-         return $this->find("id={$id}",$columns);
+        $find = $this->read("SELECT {$columns} FROM " . self::$entity . " WHERE {$terms}", $params);
+        if ($this->fail() || !$find->rowCount()) {
+            return null;
+        }
+        return $find->fetchObject(__CLASS__);
     }
 
+    /**
+     * @param int $id
+     * @param string $columns
+     * @return null|User
+     */
+    public function findById(int $id, string $columns = "*"): ?User
+    {
+        return $this->find("id = :id", "id={$id}", $columns);
+    }
+
+    /**
+     * @param $email
+     * @param string $columns
+     * @return null|User
+     */
     public function findByEmail($email, string $columns = "*"): ?User
     {
-        return $this->find("id={$email}",$columns);
-    }
-
-    public function  find(string $params,  string $columns = "*",
-                          string $operadorWhere = " AND " ): ?User {
-
-        parse_str($params, $strOptionWhere);
-
-        $where = null;
-        foreach ($strOptionWhere as $key => $value){
-
-            if (empty($where)) {
-                $where  = "{$key} = :{$key}";
-            }else if(count($strOptionWhere) > 1)
-                    $where  .= "{$operadorWhere} {$key} = :{$key}";
-        }
-            $load = $this->read("SELECT {$columns} FROM " . self::$entity .  " where {$where}"
-            ,$params);
-
-            if ($this->fail() || !$load->rowCount()) {
-                $this->message = "Usuário não encontrado para o id informado!";
-                return null;
-            }
-          return  $load->fetchObject(__CLASS__);
+        return $this->find("email = :email", "email={$email}", $columns);
     }
 
     public function save(): ?User {
@@ -82,7 +84,7 @@ class User extends Model
         if (!empty($this->id)){
             $userId=  $this->id;
 
-            if ($this->find("email!={$this->email}&id!={$this->id}")){
+            if ($this->find("email = :e AND id != :i", "e={$this->email}&i={$this->id}")){
                 $this->message->warning("O e-mail informado já está cadastrado");
                 return null;
             }
@@ -97,18 +99,19 @@ class User extends Model
         }
          //Create User
          if (empty($this->id)){
-             if ($this->find($this->email)){
-                 $this->message->error("O e-mail informado já está cadastrado");
+             if ($this->findByEmail($this->email)){
+                 $this->message->warning("O e-mail informado já está cadastrado");
                  return null;
              }
              $userId = $this->create(self::$entity,$this->safe());
              if ($this->fail()) {
                  $this->message->error("Erro ao cadastrar, verifique os dados");
+                 return null;
              }
-             $this->message->success("Cadastro realizado com sucesso");
+
          }
 
-        $this->data = $this->read("SELECT * FROM users WHERE id = :id", "id={$userId}")->fetch();
+        $this->data = ($this->findById($userId))->data();
         return $this;
     }
 
