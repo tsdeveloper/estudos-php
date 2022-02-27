@@ -22,6 +22,8 @@ echo '<pre>';
 
 fullStackPHPClassSession("find", __LINE__);
 $user = user()->findById(5);
+$user->first_name = "Test1";
+$user = $user->save();
 var_dump(
         $user
 );

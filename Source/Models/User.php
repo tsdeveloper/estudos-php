@@ -42,10 +42,7 @@ class User extends Model
 
     public function  findById(int $id, string $columns = "*"): ?User
     {
-        if (!$this->required()){
-            return null;
-        }
-        return $this->find("id={$id}",$columns);
+         return $this->find("id={$id}",$columns);
     }
 
     public function findByEmail($email, string $columns = "*"): ?User
@@ -81,45 +78,34 @@ class User extends Model
         if (!$this->required()){
                 return $this->message->warning("Nome, sobrenome, email e senha");
             }
-        /**
-         * [
-            "last_name" => "Sobrenome Obrigatório",
-            "first_name" => "Nome é obrigatório"
-         ]
-         * #tagName é obrigatório;
-         */
-
        //Update User
         if (!empty($this->id)){
             $userId=  $this->id;
-            $email = $this->read("SELECT id FROM users WHERE email = :email AND id != :id",
-                        "email={$this->email}&id={$userId}");
-            if ($email->rowCount()){
-                $this->message = "O e-mail informado já está cadastrado";
+
+            if ($this->find("email!={$this->email}&id!={$this->id}")){
+                $this->message->warning("O e-mail informado já está cadastrado");
                 return null;
             }
 
             $this->update(self::$entity, $this->safe(), "id = :id", "id={$userId}" );
             if ($this->fail()){
-                $this->message = "Erro ao atualizar {$this->email}, verifique os dados";
+                $this->message->error("Erro ao atualizar {$this->email}, verifique os dados");
                 return null;
             }
 
-            $this->message = "Usuário com email: {$this->email} foi atualizado com sucesso!";
-
-
+            $this->message->success("Usuário com email: {$this->email} foi atualizado com sucesso!");
         }
          //Create User
          if (empty($this->id)){
              if ($this->find($this->email)){
-                 $this->message = "O e-mail informado já está cadastrado";
+                 $this->message->error("O e-mail informado já está cadastrado");
                  return null;
              }
              $userId = $this->create(self::$entity,$this->safe());
              if ($this->fail()) {
-                 $this->message = "Erro ao cadastrar, verifique os dados";
+                 $this->message->error("Erro ao cadastrar, verifique os dados");
              }
-             $this->message = "Cadastro realizado com sucesso";
+             $this->message->success("Cadastro realizado com sucesso");
          }
 
         $this->data = $this->read("SELECT * FROM users WHERE id = :id", "id={$userId}")->fetch();
@@ -132,12 +118,12 @@ class User extends Model
          $this->delete(self::$entity, "email = :email", "email={$this->email}");
 
             if ($this->fail()){
-                $this->message = "Erro ao deletar o {$this->email}, verifique os dados";
+                $this->message->error("Erro ao deletar o {$this->email}, verifique os dados");
                 return null;
             }
         }
 
-        $this->message = "Usuário com email: {$this->email} foi deletado com sucesso!";
+        $this->message->success("Usuário com email: {$this->email} foi deletado com sucesso!");
         $this->data = null;
         return $this;
 

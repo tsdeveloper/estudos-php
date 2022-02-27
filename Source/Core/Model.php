@@ -178,7 +178,6 @@ abstract class Model
      */
     protected function required(): bool
     {
-        $valor1 = static::$is_admin;
         $data = (array)$this->data();
         foreach (static::$required as $field) {
             if (empty($data[$field])) {
