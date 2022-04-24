@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("a06.a10-xxs csrf security");
+fullStackPHPClassName("06.a12-register-user");
 //echo '<pre>';
 /*
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
@@ -20,106 +20,36 @@ require_once('Source/Support/Helper.php');
 session();
 echo '<pre>';
 
-// fullStackPHPClassSession("find", __LINE__);
-// $user = user()->find("id != :v", "v=6");
-// var_dump(
-//         $user
-// );
-
-// fullStackPHPClassSession("find by id", __LINE__);
-// $user = user()->findById(3);
-// var_dump(
-//     $user
-// );
-
-// fullStackPHPClassSession("find by email", __LINE__);
-// $user = user()->findByEmail("joão32@email.com.br");
-// var_dump(
-//     $user
-// );
+fullStackPHPClassSession("save user", __LINE__);
 
 
+//SQL INJECTION
+$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
-// fullStackPHPClassSession("all", __LINE__);
-// $list = user()->all(5, 5);
-// var_dump(
-//     $list
-// );
+if ($post){
+    $data = (object)$post;
 
+    if (!csrf_verify($post)){
+        $error = message()->error("Error ao enviar, favor tente novamente");
+    } else {
+        $user = user()->bootstrap(
+        $data->first_name,
+        $data->last_name,
+        $data->email,
+        $data->password);
 
-// fullStackPHPClassSession("save created", __LINE__);
-// $user = user()->find("id != :v", "v=6");
-// $user = $user->bootstrap(
-//     "Curso",
-//     "PHP",
-//     "turmaphp2019-3@email.com",
-//     "123456"
-// );
+        if (!$user->save()){
+            echo $user->message();
+        } else {
+             echo message()->success("Cadastro realizado com sucesso!");
+        }
+    }
 
-// if ($user->save()){
-//     echo message()->success("cadastro realizado com sucesso");
-// }else{
-//     echo $user->message();
-//     echo message()->info($user->message()->json());
-// }
-
-fullStackPHPClassSession("save updated", __LINE__);
-$user = user()->findById(52);
-$user->first_name = "Cursos Upinside";
-
-if ($user->save()){
-    echo message()->success("Update realizado com sucesso");
-}else{
-    echo $user->message();
-    echo message()->info($user->message()->json());
+    var_dump(
+        $data
+    );
 }
-
 echo '</pre>';
+require __DIR__ . "/form.php";
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-
-<form action="index.php" method="get">
-    <?= csrf_input(); ?>
-    <p>First name: <input type="text" name="first_name" /></p>
-    <p>Last name: <input type="text" name="last_name" /></p>
-    <p>Email: <input type="email" name="email" /></p>
-    <p>Password: <input type="password" name="password" /></p>
-    <p><input type="submit" /></p>
-</form>
-
-<script src="./node_modules/jquery/dist/jquery.min.js"></script>
-<script src="./node_modules/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-
-    $(function () {
-        /*  swal({
-                  title: "Are you sure?",
-                  text: "Once deleted, you will not be able to recover this imaginary file!",
-                  icon: "warning",
-                  buttons: true,
-                  dangerMode: true,
-              })
-              .then((willDelete) => {
-                  if (willDelete) {
-                      swal("Poof! Your imaginary file has been deleted!", {
-                          icon: "success",
-                      });
-                  } else {
-                      swal("Your imaginary file is safe!");
-                  }
-              });*/
-    })
-</script>
-</body>
-
-</html>
