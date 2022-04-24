@@ -20,36 +20,59 @@ require_once('Source/Support/Helper.php');
 session();
 echo '<pre>';
 
-fullStackPHPClassSession("find", __LINE__);
-$user = user()->find("id != :v", "v=6");
-var_dump(
-        $user
-);
+// fullStackPHPClassSession("find", __LINE__);
+// $user = user()->find("id != :v", "v=6");
+// var_dump(
+//         $user
+// );
 
-fullStackPHPClassSession("find by id", __LINE__);
-$user = user()->findById(3);
-var_dump(
-    $user
-);
+// fullStackPHPClassSession("find by id", __LINE__);
+// $user = user()->findById(3);
+// var_dump(
+//     $user
+// );
 
-fullStackPHPClassSession("find by email", __LINE__);
-$user = user()->findByEmail("joão32@email.com.br");
-var_dump(
-    $user
-);
-
-
-
-fullStackPHPClassSession("all", __LINE__);
-$user = user()->findById(3);
-var_dump(
-    $user
-);
+// fullStackPHPClassSession("find by email", __LINE__);
+// $user = user()->findByEmail("joão32@email.com.br");
+// var_dump(
+//     $user
+// );
 
 
-fullStackPHPClassSession("save created", __LINE__);
+
+// fullStackPHPClassSession("all", __LINE__);
+// $list = user()->all(5, 5);
+// var_dump(
+//     $list
+// );
+
+
+// fullStackPHPClassSession("save created", __LINE__);
+// $user = user()->find("id != :v", "v=6");
+// $user = $user->bootstrap(
+//     "Curso",
+//     "PHP",
+//     "turmaphp2019-3@email.com",
+//     "123456"
+// );
+
+// if ($user->save()){
+//     echo message()->success("cadastro realizado com sucesso");
+// }else{
+//     echo $user->message();
+//     echo message()->info($user->message()->json());
+// }
+
 fullStackPHPClassSession("save updated", __LINE__);
+$user = user()->findById(52);
+$user->first_name = "Cursos Upinside";
 
+if ($user->save()){
+    echo message()->success("Update realizado com sucesso");
+}else{
+    echo $user->message();
+    echo message()->info($user->message()->json());
+}
 
 echo '</pre>';
 ?>

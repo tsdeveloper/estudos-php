@@ -55,6 +55,15 @@ class User extends Model
         return $find->fetchObject(__CLASS__);
     }
 
+  public function all(int $limit = 30, int $offset = 0, string $columns = "*"): ?array
+    {
+        $all = $this->read("SELECT {$columns} FROM " . self::$entity .
+            " LIMIT :limit OFFSET :offset",
+            "limit={$limit}&offset={$offset}");
+
+        return $all->fetchAll(\PDO::FETCH_CLASS, __CLASS__);
+    }
+
     /**
      * @param int $id
      * @param string $columns
