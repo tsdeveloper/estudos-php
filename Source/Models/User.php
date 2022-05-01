@@ -87,7 +87,8 @@ class User extends Model
     public function save(): ?User {
 
         if (!$this->required()){
-                return $this->message->warning("Nome, sobrenome, email e senha");
+                $this->message->warning("Nome, sobrenome, email e senha");
+                return null;
             }
        //Update User
         if (!empty($this->id)){
