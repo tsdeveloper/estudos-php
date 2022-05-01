@@ -202,7 +202,6 @@ function csrf_verify($request): bool {
         return false;
 
     return true;
-
 }
 
 
