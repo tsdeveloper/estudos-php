@@ -43,6 +43,10 @@ if ($post){
         } else {
              echo message()->success("Cadastro realizado com sucesso!");
         }
+
+        var_dump(
+            $user->data()
+        );
     }
 
     var_dump(
