@@ -26,6 +26,9 @@ function is_email(string $email): bool
  */
 function is_passwd(string $password): bool
 {
+    if (password_get_info($password['algo'])) {
+        return true;
+    }
     return (mb_strlen($password) >= CONFIG_PASSWD_MIN_LEN &&
                             mb_strlen($password) <=
                             CONFIG_PASSWD_MAX_LEN ? true : false);
@@ -218,6 +221,3 @@ function csrf_verify($request): bool {
 function user(): User {
     return new User();
 }
-
-
-

@@ -20,39 +20,21 @@ require_once('Source/Support/Helper.php');
 session();
 echo '<pre>';
 
-fullStackPHPClassSession("save user", __LINE__);
+fullStackPHPClassSession("query params", __LINE__);
+$user = user()->findById(1);
+$user->document = 22.22;
+$user->save();
 
+$user = user()->find("ativo = :a", "a=true");
+var_dump(
+    $user
+);
 
-//SQL INJECTION
-$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+$user = user()->all(5);
+var_dump(
+    $user
+);
 
-if ($post){
-    $data = (object)$post;
-
-    if (!csrf_verify($post)){
-        $error = message()->error("Error ao enviar, favor tente novamente");
-    } else {
-        $user = user()->bootstrap(
-        $data->first_name,
-        $data->last_name,
-        $data->email,
-        $data->password);
-
-        if (!$user->save()){
-            echo $user->message();
-        } else {
-             echo message()->success("Cadastro realizado com sucesso!");
-        }
-
-        var_dump(
-            $user->data()
-        );
-    }
-
-    var_dump(
-        $data
-    );
-}
 echo '</pre>';
 require __DIR__ . "/form.php";
 
