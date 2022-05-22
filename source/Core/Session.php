@@ -6,7 +6,7 @@ namespace Source\Core;
 
 /**
  * Class Session
- * @package Source\Core
+ * @package source\Core
  */
 class Session
 {

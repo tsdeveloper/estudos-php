@@ -1,5 +1,25 @@
 {
+    "name": "projeto/estudos-php",
+    "description": "Curso PHP",
     "autoload": {
-        "psr-4": {"Source\\": "Source/" }
+        "psr-4": {
+            "Source\\": "source/"
+        },
+        "files": [
+            "source/Support/Config.php",
+            "source/Support/Helper.php"
+        ]
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "authors": [
+        {
+            "name": "Web",
+            "email": "email@email.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
     }
 }
