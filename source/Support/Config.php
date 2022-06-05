@@ -34,3 +34,15 @@ define("CONFIG_MESSAGE_WARNING", "warning");
 define("CONFIG_MESSAGE_ERROR", "error");
 define("CONFIG_MESSAGE_LOGIN", "Login realizado com sucesso!");
 define("CONFIG_MESSAGE_CHECKOUT", "Item adicionado com sucesso!");
+
+/*EMAIL*/
+define('CONFIG_MAIL_HOST','smtp.sendgrid.net');                     //Set the SMTP server to send through
+define('CONFIG_MAIL_PORT', '587');
+define('CONFIG_MAIL_USER', 'apikey');
+define('CONFIG_MAIL_PASS', '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');                               //SMTP password
+define('CONFIG_MAIL_SENDER', ['name' => 'Curso PHP', 'addres' => "estudosphpdeveloper@gmail.com"]);
+define('CONFIG_MAIL_OPTION_LANG', 'br');
+define('CONFIG_MAIL_OPTION_HTML', true);
+define('CONFIG_MAIL_OPTION_AUTH', true);
+define('CONFIG_MAIL_OPTION_SECURE', 'tls');
+define('CONFIG_MAIL_OPTION_CHARSET', 'utf-8');
