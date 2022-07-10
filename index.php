@@ -1,8 +1,8 @@
 <?php
 
 use PHPMailer\PHPMailer\PHPMailer;
-use Source\Core\Email;
-use Source\Models\User;
+use source\Core\Email;
+use source\Models\User;
 
 require __DIR__ . '/fullstackphp/fsphp.php';
 fullStackPHPClassName("07.a06-sintetizando-e-abstraindo");
@@ -25,14 +25,19 @@ $user = new User();
 $email = new Email();
 $email->boostrap("teste",
         "teste",
-"email",
-"User");
+"nadiaawhse@newshbo.com",
+"User Test");
 
 
 try {
                                  //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-    echo 'Message has been sent';
+   $email->attach(__DIR__ . "/images/php.png", "Anexo");
+
+    if ($email->send()) {
+        echo 'Message has been sent';
+    }
+
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }

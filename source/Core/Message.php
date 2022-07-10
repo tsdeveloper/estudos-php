@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Source\Core;
+namespace source\Core;
 
 
 class Message

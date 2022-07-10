@@ -1,26 +1,21 @@
 {
-    "name": "projeto/estudos-php",
-    "description": "Curso PHP",
-    "autoload": {
-        "psr-4": {
-            "Source\\": "source/"
-        },
-        "files": [
-            "source/Support/Config.php",
-            "source/Support/Helper.php"
-        ]
+  "name": "thiag/estudos-php",
+  "require": {
+    "phpmailer/phpmailer": "^6.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "source\\": "source/"
     },
-    "config": {
-        "vendor-dir": "vendor"
-    },
-    "authors": [
-        {
-            "name": "Web",
-            "email": "email@email.com"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {
-        "phpmailer/phpmailer": "^6.5"
+    "files": [
+      "source/Support/Config.php",
+      "source/Support/Helper.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "Web Developer",
+      "email": "thiago.contato.developer@gmail.com"
     }
+  ]
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Source\Core;
+namespace source\Core;
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -54,33 +54,50 @@ class Email
 
         return $this;
     }
+
+     public function attach(string $fileName, string $filePath): Email {
+        $this->data->attach[$fileName] = $filePath;
+        return $this;
+     }
+
     public function send($fromEmail = CONFIG_MAIL_SENDER['address'],
                          $fromName = CONFIG_MAIL_SENDER['name']): bool
     {
+        echo 'Validando data';
         if (!empty($this->data)){
             $this->message->error("Erro ao enviar, favor verifique os dados");
             return false;
         }
+        echo "Validando is email:" . CONFIG_MAIL_SENDER['address'];
 
         if (!is_email($fromEmail))
         {
             $this->message->warning("O e-mail de remetente não é válido");
             return false;
         }
+
         try {
             $this->mail->subject = $this->data->subject;
             $this->mail->msgHTML($this->data->message);
             $this->mail->setFrom($fromEmail,$fromName);
-            $this->mail->addAddress($this->data->toEmail, $this->data->toName);
+           echo 'Tentando adicionar Anexo';
+            if (!empty($this->data->attach)){
+                foreach ($this->data->attach as $name => $path) {
+                    $this->mail->addAttachment($path, $name);
+                }
+            }
 
+            $this->mail->addAddress($this->data->toEmail, $this->data->toName);
+                echo 'Tentando enviar email';
             $this->mail->send();
+               echo 'Message has been sent';
             return true;
 
         }catch (Exception $exception) {
             $this->message->error("Message could not be sent. Mailer Error: {$this->data->ErrorInfo}");
             return false;
         }
-        }
+    }
 
 
     public function mail(): PHPMailer
