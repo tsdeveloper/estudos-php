@@ -2,7 +2,7 @@
   "name": "thiag/estudos-php",
   "require": {
     "phpmailer/phpmailer": "^6.6",
-    "league/plates": "^3.4"
+    "league/plates": "v4.0.0-alpha"
   },
   "autoload": {
     "psr-4": {
