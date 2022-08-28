@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73797840060e17eafc17cbe1ef2d7dd6",
+    "content-hash": "3239cb9939574c9f5fd6e58434cf0794",
     "packages": [
+        {
+            "name": "coffeecode/cropper",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robsonvleite/cropper.git",
+                "reference": "b80c07c4b94a3931484aff830283efcd958d1340"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robsonvleite/cropper/zipball/b80c07c4b94a3931484aff830283efcd958d1340",
+                "reference": "b80c07c4b94a3931484aff830283efcd958d1340",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "^7.1",
+                "php": "^7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CoffeeCode\\Cropper\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robson V. Leite",
+                    "email": "cursos@upinside.com.br",
+                    "role": "Developer"
+                }
+            ],
+            "description": "It is a easy and simple PHP image cropper and cache thumb manager",
+            "homepage": "http://www.upinside.com.br",
+            "keywords": [
+                "Coffeecode",
+                "image cache",
+                "image crop",
+                "image thumb",
+                "upload"
+            ],
+            "support": {
+                "issues": "https://github.com/robsonvleite/cropper/issues",
+                "source": "https://github.com/robsonvleite/cropper/tree/master"
+            },
+            "time": "2018-09-26T14:24:41+00:00"
+        },
         {
             "name": "league/plates",
             "version": "v4.0.0-alpha",

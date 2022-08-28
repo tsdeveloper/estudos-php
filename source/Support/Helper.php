@@ -8,6 +8,7 @@
 use source\Core\Connect;
 use source\Core\Message;
 use source\Core\Session;
+use source\Core\View;
 use source\Models\User;
 
 
@@ -220,4 +221,11 @@ function csrf_verify($request): bool {
  */
 function user(): User {
     return new User();
+}
+
+/**
+ * @return View
+ */
+function view(): View {
+    return new View();
 }

@@ -5,7 +5,7 @@ use source\Core\Email;
 use source\Models\User;
 
 require __DIR__ . '/fullstackphp/fsphp.php';
-fullStackPHPClassName("07.a08-template-engine-plates");
+fullStackPHPClassName("07.a10-template-engine-plates");
 //echo '<pre>';
 /*
  * [ classe e objeto ] http://php.net/manual/pt_BR/language.oop5.basic.php
@@ -24,22 +24,21 @@ echo '<pre>';
 try {
                                  //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 // Create new Plates instance
-$templates = new League\Plates\Engine(__DIR__. '/assets/views');
+$view = view()->path("test", "test");
 
 
-$templates->addFolder("test", "test");
-
+//[10,20,50  e 100]
 //Render a template
 if (empty($_GET["id"])){
-    echo $templates->render('test::list', [
+    echo $view->render('test::list', [
         "title" => "Usuários do Sistema",
-        'list' => (user()->all(3))
+        'listUsuarios' => (user()->all(3))
     ]);
 }
 else {
-    echo $templates->render('test::user', [
+    echo $view->render('test::user', [
         "title" => "Usuários do Sistema",
-        'list' => (user()->find($_GET["id"]))
+        'user' => (user()->find("id != :v", "v={$_GET["id"]}"))
     ]);
 }
 
