@@ -16,6 +16,7 @@ fullStackPHPClassName("07.a10-template-engine-plates");
 
 
 require __DIR__ . '/vendor/autoload.php';
+fullStackPHPClassSession("images", __LINE__);
 $formSend = "image";
 require __DIR__ . "/form.php";
 
@@ -38,8 +39,26 @@ if ($post && $post['send'] == "image")
     }
 }
 
+
+
+fullStackPHPClassSession("files", __LINE__);
+if ($post && $post['send'] == "file")
+{
+    var_dump($post, ($_FILES ?? ""));
+
+    $u = $upload->file($_FILES['file'], $post['name']);
+    if ($u) {
+        echo "<a target='_blank' href='{$u}'>Ver arquivo</a>";
+    } else {
+        echo $upload->message();
+    }
+}
+
 echo '</pre>';
 $formSend = "file";
+
+
+
 require __DIR__ . "/form.php";
 
 ?>

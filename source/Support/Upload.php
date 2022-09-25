@@ -23,7 +23,7 @@ class Upload
     }
 //Tamanho que vai ser enviado: 10GB
 //Tipos de arquivos permitidos:
-    public function image(array $image, string $name, int $width = CONF_IMAGE_SIZE)
+    public function image(array $image, string $name, int $width = CONF_IMAGE_SIZE): ?string
     {
         $upload = new Image(CONF_UPLOAD_DIR, CONF_UPLOAD_IMAGE_DIR);
 
@@ -34,4 +34,17 @@ class Upload
 
         return $upload->upload($image, $name, $width, CONF_IMAGE_QUALITY);
     }
+
+     public function file(array $file, string $name): ?string
+    {
+        $upload = new File(CONF_UPLOAD_DIR, CONF_UPLOAD_FILE_DIR);
+
+        if (empty($file['type']) || !in_array($file['type'], $upload::isAllowed())) {
+            $this->message->error("Você não selecionou um arquivo válido");
+            return null;
+        }
+
+        return $upload->upload($file, $name);
+    }
+
 }
