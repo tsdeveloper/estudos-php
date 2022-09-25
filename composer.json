@@ -1,9 +1,12 @@
 {
   "name": "thiag/estudos-php",
   "require": {
-    "phpmailer/phpmailer": "^6.6",
+    "phpmailer/phpmailer": "~6.0",
     "league/plates": "v4.0.0-alpha",
-    "coffeecode/cropper": "1.0.0"
+    "coffeecode/uploader": "2.0.3",
+    "coffeecode/cropper": "2.0.3",
+    "coffeecode/optimizer": "2.0.3",
+    "coffeecode/paginator": "2.0.3"
   },
   "autoload": {
     "psr-4": {

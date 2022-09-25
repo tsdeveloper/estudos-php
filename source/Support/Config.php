@@ -55,7 +55,7 @@ define('CONFIG_MAIL_OPTION_CHARSET', 'utf-8');
 /**
  * UPLOAD
  */
-define("CONF_UPLOAD_DIR", "../storage/uploads");
+define("CONF_UPLOAD_DIR", __DIR__ . "../../../Storage/uploads");
 define("CONF_UPLOAD_IMAGE_DIR", "images");
 define("CONF_UPLOAD_FILE_DIR", "files");
 define("CONF_UPLOAD_MEDIA_DIR", "medias");
@@ -66,4 +66,4 @@ define("CONF_UPLOAD_MEDIA_DIR", "medias");
  */
 define("CONF_IMAGE_CACHE", CONF_UPLOAD_DIR . "/" . CONF_UPLOAD_IMAGE_DIR . "/cache");
 define("CONF_IMAGE_SIZE", 2000);
-define("CONF_IMAGE_QUALITY", ["jpg" => 75, "png" => 5]);
+define("CONF_IMAGE_QUALITY", ["jpg" => 5, "png" => 12]);
